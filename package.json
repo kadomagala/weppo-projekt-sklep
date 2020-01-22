@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kadomagala/weppo-projekt-sklep.git"
