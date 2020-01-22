@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="public/custom.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="custom.css">
 
     <title> Sklep </title>
 
@@ -14,12 +15,12 @@
     <div class="body-wrap">
         <div class="products row">
             <% results.forEach(function(r) { %>
-            <div class="product col-sm-3"> 
+            <div class="product col-sm-3">
                 <div class="product-title">
-                    <a href="/product/<%= r.id %>" ><%= r.name %></a>
+                    <a href="/product/<%= r.id %>"><%= r.name %></a>
                 </div>
                 <div class="product-img">
-                        <a href="/product/<%= r.id %>" ><img src="<%= r.image %>"></a>             
+                    <a href="/product/<%= r.id %>"><img src="<%= r.image %>"></a>
                 </div>
                 <div class="product-desc ">
                     <%= r.description %>
@@ -27,7 +28,7 @@
             </div>
             <% }); %>
         </div>
-    </div>    
+    </div>
 </body>
 
 </html>
