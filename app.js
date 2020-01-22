@@ -29,6 +29,7 @@ try {
 
 
 express()
+    .use(express.static(__dirname + '/public'))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .get('/', async (req, res) => {
