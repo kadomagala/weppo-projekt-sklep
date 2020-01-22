@@ -1,20 +1,36 @@
 const express = require('express')
 const path = require('path')
+const fs = require('fs');
 const PORT = process.env.PORT || 5000
 
 const {
     Pool
 } = require('pg');
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
-});
+let pool;
+try {
+    let secret = JSON.parse(fs.readFileSync('secret.json'));
+    pool = new Pool({
+        host: secret.db.host,
+        database: secret.db.database,
+        user: secret.db.user,
+        password: secret.db.password,
+        ssl: true
+    });
+} catch (err) {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
+    });
+}
+
+//console.log(secret)
+
 
 
 express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
-    .get('/', (req, res) => {
+    .get('/', async (req, res) => {
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM items');
