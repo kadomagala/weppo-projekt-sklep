@@ -17,6 +17,7 @@ try {
         ssl: true
     });
 } catch (err) {
+    console.log("error");
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
         ssl: true
@@ -38,6 +39,27 @@ express()
                 'results': (result) ? result.rows : null
             };
             res.render('index', results);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
+    })
+    .get('/product/:id(\\d+)', async (req, res) => {
+        try {
+            const client = await pool.connect()
+            let item_id = req.params.id;
+            client.input("ProductId")
+            const result = await client.query('SELECT * FROM items WHERE id = @ProductId');
+            const results = {
+                'results': (result) ? result.rows : null
+            };
+            if (results) {
+                res.render('index', results);
+            } else {
+                res.render('404');
+            }
+
             client.release();
         } catch (err) {
             console.error(err);
