@@ -1,0 +1,15 @@
+body {
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.product-title {
+    font-size: 30px;
+    text-align: center;
+}
+.product-img img {
+    width: 200 px;
+    height: 200 px;
+    margin: 20px auto;
+    display: block;
+}
