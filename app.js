@@ -48,13 +48,12 @@ express()
     .get('/product/:id(\\d+)', async (req, res) => {
         try {
             const client = await pool.connect()
-            let item_id = req.params.id;
-            client.input("ProductId")
-            const result = await client.query('SELECT * FROM items WHERE id = @ProductId');
+
+            const result = await client.query('SELECT * FROM items WHERE id = $1', [req.params.id]);
             const results = {
                 'results': (result) ? result.rows : null
             };
-            if (results) {
+            if (result) {
                 res.render('index', results);
             } else {
                 res.render('404');
