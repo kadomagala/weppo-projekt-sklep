@@ -9,7 +9,11 @@
 
 <body>
     <p>Hello world</p>
-    HEROKU test
+    <ul>
+        <% results.forEach(function(r) { %>
+        <li><%= r.id %> - <%= r.name %> - <%= r.description %></li>
+        <% }); %>
+    </ul>
 </body>
 
 </html>
