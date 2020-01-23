@@ -66,4 +66,9 @@ express()
             res.send("Error " + err);
         }
     })
+    .use((req, res, next) => {
+        res.render('404.ejs', {
+            url: req.url
+        });
+    })
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
