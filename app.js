@@ -81,6 +81,10 @@ express()
             res.send("Error " + err);
         }
     })
+    .get('/login', async (req, res) => {
+
+        res.render('login.ejs');
+    })
     .use((req, res, next) => {
         res.render('404.ejs', {
             url: req.url
