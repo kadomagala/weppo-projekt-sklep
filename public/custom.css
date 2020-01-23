@@ -68,7 +68,6 @@ a {
 
 
 
-
 .navbar {
     height: 100px;
     background: #e3e3e3e3;
@@ -96,7 +95,7 @@ a {
     display: flex;
 }
 
-input[type="text"]{
+.search input[type="text"]{
     width: 180px;
     color: inherit;
     border: none;
@@ -108,7 +107,7 @@ input[type="text"]{
     //margin-top: -40px!important;
 }
 
-input[type="submit"] {
+.search input[type="submit"] {
     background: #888;
     background-image: url("http://www.kurshtml.edu.pl/pliki/cse/search_box_icon.png");
     background-repeat: no-repeat;
