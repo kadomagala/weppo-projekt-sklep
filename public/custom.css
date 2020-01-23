@@ -1,6 +1,11 @@
 body {
     color: black;
     font-family: 'Raleway', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+a {
+    color: black;
 }
 .products {
     width: 98%;
@@ -59,3 +64,60 @@ body {
     overflow: hidden;
 
 }
+
+
+
+
+
+.navbar {
+    height: 100px;
+    background: #e3e3e3e3;
+    margin: 0px;
+    margin-bottom: 20px;
+    padding: 0px 20px;
+
+}
+#navbar-menu {
+    margin-top: 0px;
+}
+
+.navbar li{
+    color: black;
+    margin: auto 20px;
+}
+.navbar li a{
+    color: black;
+}
+.search {
+    margin: 0px;
+    padding: 10px 30px;
+    height: 50px;
+    width: 300px;
+    display: flex;
+}
+
+input[type="text"]{
+    width: 180px;
+    color: inherit;
+    border: none;
+    padding: 10px;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    height: 40px!important;
+    //margin-top: -40px!important;
+}
+
+input[type="submit"] {
+    background: #888;
+    background-image: url("http://www.kurshtml.edu.pl/pliki/cse/search_box_icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 30px;
+    height: 100%;
+    margin: 0px;
+    padding: 20px;
+    border: none;
+
+}
+
