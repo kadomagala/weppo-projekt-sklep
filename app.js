@@ -17,7 +17,6 @@ try {
         ssl: true
     });
 } catch (err) {
-    console.log("error");
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
         ssl: true
@@ -41,6 +40,22 @@ express()
             };
             res.render('index', results);
             client.release();
+        } catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
+    })
+    .get('/search', async (req, res) => {
+        try {
+
+
+            const client = await pool.connect()
+            let pattern = "%" + req.query.q + "%";
+            const result = await client.query("SELECT * FROM items WHERE LOWER(name) like LOWER($1) OR LOWER(description) like LOWER($1) ", [pattern]);
+            const results = {
+                'results': (result) ? result.rows : null
+            };
+            res.render('index', results);
         } catch (err) {
             console.error(err);
             res.send("Error " + err);
