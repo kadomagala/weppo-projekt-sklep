@@ -54,7 +54,7 @@ express()
             const results = {
                 'results': (result) ? result.rows : null
             };
-            if (result) {
+            if (result.rows.length > 0) {
                 res.render('index', results);
             } else {
                 res.render('404');
