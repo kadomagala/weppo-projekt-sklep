@@ -97,8 +97,6 @@ express()
             message: ""
         };
 
-
-
         res.render('login.ejs', data)
     })
     .post('/register', async (req, res) => {
@@ -111,11 +109,28 @@ express()
 
         if (pwd != pwd2){
             data.message = "Hasła się różnią";
+
         }
         else {
+            var bcrypt = require('bcryptjs');
+
+            /* async
+
+            var pwdhash;
+            bcrypt.genSalt(1, function(err, salt) {
+                bcrypt.hash(pwd, salt, function(err, hash) {
+                    pwdhash = hash;
+                });
+            });
+            */
+
+           var salt = bcrypt.genSaltSync(1);
+           var pwdhash = bcrypt.hashSync(pwd, salt);
+
+
             try {
                 const client = await pool.connect()
-                const result = await client.query(`INSERT INTO users (email,password,role) VALUES ($1, $2 ,$3)`, [email,pwd,'user']);
+                const result = await client.query(`INSERT INTO users (email,password,role) VALUES ($1, $2 ,$3)`, [email,pwdhash,'user']);
                 data.message = "Zarejestrowano użytkownika";
                    
             }
