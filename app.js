@@ -97,6 +97,40 @@ express()
             message: ""
         };
 
+        const client = await pool.connect()
+        const result = await client.query('SELECT password FROM users WHERE email = $1', [email]);
+        if(result.rowCount > 0 ){
+            var pwdhash =  result.rows[0].password;
+            if(pwdhash== null || pwdhash == undefined) console.error("Błąd odczytu hasła z bazy danych");
+            var bcrypt = require('bcryptjs');
+            /* asynchronoczność nie działa bo nie umiem
+            bcrypt.compare(pwd, pwdhash, function(err, res), {
+                if(err){
+                    console.error(err);
+                }
+                if(res === true){
+                    data.message = "Zalogowano"; // nie działa bo jesteśmy w lambda
+                    console.log("zalogowano s");
+                    return function(){
+                        data.message = "zalogowano";
+                    }
+                }
+                else {
+                    data.message = "Błędne hasło";
+                    console.log("Błędne hasło");                    
+                }
+            });
+            */
+            if(bcrypt.compareSync(pwd,pwdhash)){
+                data.message = "Zalogowano";
+            }
+            else {
+                data.message = "Błędne hasło";
+            }
+        }
+        else {
+            data.message = "Błędny e-mail";
+        }
         res.render('login.ejs', data)
     })
     .post('/register', async (req, res) => {
@@ -106,7 +140,7 @@ express()
         var data = {
             message: ""
         };
-
+        // DODAC ESCPAE 
         if (pwd != pwd2){
             data.message = "Hasła się różnią";
 
@@ -132,7 +166,7 @@ express()
                 const client = await pool.connect()
                 const result = await client.query(`INSERT INTO users (email,password,role) VALUES ($1, $2 ,$3)`, [email,pwdhash,'user']);
                 data.message = "Zarejestrowano użytkownika";
-                   
+                client.release(); 
             }
             //to i tak nie działa ale sobie jest
             catch (err){
