@@ -8,8 +8,7 @@
 
     <div class="body-wrap">
         <div class="container">
-            <% var message = 0;
-            if(message){ %>
+            <% if(message){ %>
                 <div class="message">
                     <span><%= message %></span>
                 </div>
@@ -21,10 +20,10 @@
                     <div class="login">
                         <form action="/login" method="POST">
                             <div class="form-container">
-                                <label for="uname"><b>Wprowadź e-mail</b></label>
+                                <label for="email"><b>Wprowadź e-mail</b></label>
                                 <input type="text" placeholder="Wprowadź e-mail" name="email" required>
                             
-                                <label for="psw"><b>Podaj hasło</b></label>
+                                <label for="password"><b>Podaj hasło</b></label>
                                 <input type="password" placeholder="Podaj hasło" name="password" required>
                             
                                 <button type="submit" name="login-submit" class="registerbtn">Zaloguj się</button>
@@ -42,10 +41,10 @@
                                 <label for="email"><b>Wprowadź e-mail</b></label>
                                 <input type="text" placeholder="Wprowadź e-mail" name="email" required>
                             
-                                <label for="psw"><b>Podaj hasło</b></label>
+                                <label for="password"><b>Podaj hasło</b></label>
                                 <input type="password" placeholder="Podaj hasło" name="password" required>
                             
-                                <label for="psw-repeat"><b>Podaj ponownie hasło</b></label>
+                                <label for="password2"><b>Podaj ponownie hasło</b></label>
                                 <input type="password" placeholder="Podaj ponownie hasło" name="password2" required>
                             
                                 <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
