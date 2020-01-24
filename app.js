@@ -85,28 +85,34 @@ express()
         }
     })
     .get('/login', async (req, res) => {
-        var message = "";
-        res.render('login.ejs', message);
+        var data = {
+            message: ""
+        };
+        res.render('login.ejs', data);
     })
     .post('/login', (req, res) => {
         let login = req.body.email;
         let pwd = req.body.password;
-        var message = "";
+        var data = {
+            message: ""
+        };
 
 
 
-        res.render('login.ejs', message)
+        res.render('login.ejs', data)
     })
     .post('/register', (req, res) => {
         let login = req.body.email;
         let pwd = req.body.password;
         let pwd2 = req.body.password2;
-        var message = "";
+        var data = {
+            message: ""
+        };
 
         if (pwd != pwd2)
-            message = "Hasła się różnią";
+            data.message = "Hasła się różnią";
 
-        res.render('login.ejs', message)
+        res.render('login.ejs', data)
     })
     .use((req, res, next) => {
         res.render('404.ejs', {
