@@ -28,6 +28,9 @@ try {
 
 
 express()
+    .use(express.urlencoded({
+        extended: true
+    }))
     .use(express.static(__dirname + '/public'))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
@@ -82,8 +85,28 @@ express()
         }
     })
     .get('/login', async (req, res) => {
+        var message = "";
+        res.render('login.ejs', message);
+    })
+    .post('/login', (req, res) => {
+        let login = req.body.email;
+        let pwd = req.body.password;
+        var message = "";
 
-        res.render('login.ejs');
+
+
+        res.render('login.ejs', message)
+    })
+    .post('/register', (req, res) => {
+        let login = req.body.email;
+        let pwd = req.body.password;
+        let pwd2 = req.body.password2;
+        var message = "";
+
+        if (pwd != pwd2)
+            message = "Hasła się różnią";
+
+        res.render('login.ejs', message)
     })
     .use((req, res, next) => {
         res.render('404.ejs', {
