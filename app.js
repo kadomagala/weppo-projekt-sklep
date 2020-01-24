@@ -90,8 +90,8 @@ express()
         };
         res.render('login.ejs', data);
     })
-    .post('/login', (req, res) => {
-        let login = req.body.email;
+    .post('/login', async (req, res) => {
+        let email = req.body.email;
         let pwd = req.body.password;
         var data = {
             message: ""
@@ -101,16 +101,31 @@ express()
 
         res.render('login.ejs', data)
     })
-    .post('/register', (req, res) => {
-        let login = req.body.email;
+    .post('/register', async (req, res) => {
+        let email = req.body.email;
         let pwd = req.body.password;
         let pwd2 = req.body.password2;
         var data = {
             message: ""
         };
 
-        if (pwd != pwd2)
+        if (pwd != pwd2){
             data.message = "Hasła się różnią";
+        }
+        else {
+            try {
+                const client = await pool.connect()
+                const result = await client.query(`INSERT INTO users (email,password,role) VALUES ($1, $2 ,$3)`, [email,pwd,'user']);
+                data.message = "Zarejestrowano użytkownika";
+                   
+            }
+            //to i tak nie działa ale sobie jest
+            catch (err){
+                console.error(err);
+                res.send("Error " + err);
+                data.message = "Błąd rejestracji";
+            }
+        } 
 
         res.render('login.ejs', data)
     })
