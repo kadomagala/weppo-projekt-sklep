@@ -4,6 +4,7 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
 a {
     color: black;
 }
@@ -20,20 +21,20 @@ a {
 /*
 *****************************************************************************************************************
 Products
-
 */
-
 
 .products {
     width: 98%;
     margin: 0 auto;
 }
+
 .product {
-    background: #e3e3e3e3;
+    background: #efefef;
     padding-bottom: 20px;
 }
+
 .product:hover {
-    background: #cecccc;
+    background: #cecccca6;
 }
 
 .col-sm-2 {
@@ -46,30 +47,18 @@ Products
     color: black;
     text-align: center;
 }
+
 .product-title a {
     color: black;
 }
+
 .product-img img {
     
     margin: 10px auto;
     display: block;
-    /*
-    -webkit-transform: scale(1);
-	transform: scale(1);
-	-webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    */  
     width: 90%;
 }
-/*
-.product-img img:hover { 
-    opacity: 0.7;
-    width: 100%;
 
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
-*/
 .product-desc {
     padding: 0 20px;
     width: 100%;
@@ -84,36 +73,55 @@ Navbar
 
 */
 
-
 .navbar {
-    height: 100px;
-    background: #e3e3e3e3;
+    height: 50px;
+    background: #efefef;
     margin: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 0px 20px;
-
+    align-items: unset;
+    border-bottom: 1px solid #a7a6a6;
 }
+
+.navbar-brand h1{
+    border: 2px solid;
+    border-radius: 30px;
+    padding: 5px;
+    font-size: 22px;
+}
+
 #navbar-menu {
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
 .navbar li{
     color: black;
-    margin: auto 20px;
+    margin: 0px 20px;
 }
+
 .navbar li a{
     color: black;
+    text-decoration: none;
 }
+
+.navbar li:last-child {
+    margin-top: -5px;
+}
+
+.navbar li:hover {
+    opacity: 0.6;
+}
+
 .search {
     margin: 0px;
-    padding: 10px 30px;
+    padding: 5px 30px;
     height: 50px;
-    width: 300px;
+    width: 400px;
     display: flex;
 }
 
 .search input[type="text"]{
-    width: 180px;
+    width: 310px;
     color: inherit;
     border: none;
     padding: 10px;
@@ -121,7 +129,6 @@ Navbar
     cursor: pointer;
     outline: inherit;
     height: 40px!important;
-    //margin-top: -40px!important;
 }
 
 .search input[type="submit"] {
@@ -134,14 +141,13 @@ Navbar
     margin: 0px;
     padding: 20px;
     border: none;
-
 }
 
 /*
 *****************************************************************************************************************
 Login Page
-
 */
+
 * {box-sizing: border-box}
 
 /* Add padding to containers */
