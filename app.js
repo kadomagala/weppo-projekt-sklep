@@ -1,14 +1,15 @@
 const express = require('express')
 const path = require('path')
 const fs = require('fs');
-const PORT = process.env.PORT || 5000
-
+const session = require('express-session')
+const PORT = process.env.PORT || 5000;
+var secret;
 const {
     Pool
 } = require('pg');
 let pool;
 try {
-    let secret = JSON.parse(fs.readFileSync('secret.json'));
+    secret = JSON.parse(fs.readFileSync('secret.json'));
     pool = new Pool({
         host: secret.db.host,
         database: secret.db.database,
@@ -30,6 +31,11 @@ try {
 express()
     .use(express.urlencoded({
         extended: true
+    }))
+    .use(session({
+        secret: secret.session.secret,
+        resave: false,
+        saveUninitialized: true
     }))
     .use(express.static(__dirname + '/public'))
     .set('views', path.join(__dirname, 'views'))
