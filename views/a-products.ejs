@@ -13,6 +13,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nazwa</th>
+                                <th>Cena</th>
                                 <th>Opis</th>
                                 <th>Zdjęcie</th>
                                 <th>Edytuj</th>
@@ -24,6 +25,9 @@
                                     </th>
                                     <th>
                                         <%= r.name %>
+                                    </th>
+                                    <th>
+                                        <%= r.price %>
                                     </th>
                                     <th>
                                         <%= r.description %>
@@ -49,6 +53,9 @@
                                     <label for="name"><b>Wprowadź nazwe</b></label>
                                     <input type="text" placeholder="Wprowadź nazwe" name="name" required>
 
+                                    <label for="price"><b>Wprowadź cene</b></label>
+                                    <input type="text" placeholder="Wprowadź cene" name="price" required>
+
                                     <label for="description"><b>Wprowadź opis</b></label>
                                     <textarea name="description" form="add-product-form"></textarea>
 
@@ -62,14 +69,17 @@
                         <div class="col-md-6">
                             <div class="form-container">
                                 <h2>Edytuj produkt</h2>
-                                <form action="/edit-product" method="POST" id="product-form">
+                                <form action="/edit-product" method="POST" id="edit-product-form">
                                     <input type="hidden" name="id" value="" required>
 
                                     <label for="name"><b>Nazwa</b></label>
                                     <input type="text" name="name" required>
 
+                                    <label for="price"><b>Cena</b></label>
+                                    <input type="text" name="price" required>
+
                                     <label for="description"><b>Opis</b></label>
-                                    <textarea name="description" form="product-form"></textarea>
+                                    <textarea name="description" form="edit-product-form"></textarea>
 
                                     <label for="image"><b>Zdjęcie</b></label>
                                     <input type="text" name="image">

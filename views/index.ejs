@@ -3,30 +3,37 @@
 
 <% include head.ejs %>
 
-<body>
+    <body>
 
-    <% include navbar.ejs %>
-    <div class="body-wrap">
-        <h2>Nasze produkty</h2>
-        <div class="products row">
-            <% results.forEach(function(r) { %>
-            <div class="col-sm-2">
-                <div class="product">
-                    <div class="product-title">
-                        <a href="/product/<%= r.id %>"><%= r.name %></a>
-                    </div>
-                    <div class="product-img">
-                        <a href="/product/<%= r.id %>"><img src="<%= r.image %>"></a>
-                    </div>
-                    <div class="product-desc ">
-                        <p><%= r.description %></p>
-                    </div>
+        <% include navbar.ejs %>
+            <div class="body-wrap">
+                <h2>Nasze produkty</h2>
+                <div class="products row">
+                    <% results.forEach(function(r) { %>
+                        <div class="col-sm-2">
+                            <div class="product">
+                                <div class="product-title">
+                                    <a href="/product/<%= r.id %>">
+                                        <%= r.name %>
+                                    </a>
+                                </div>
+                                <div class="product-img">
+                                    <a href="/product/<%= r.id %>"><img src="<%= r.image %>"></a>
+                                </div>
+                                <div class="product-price">
+                                    <b>Cena: <%= r.price %> zł.</b>
+                                </div>
+                                <div class="product-desc">
+                                    <p>
+                                        <%= r.description %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
                 </div>
             </div>
-            <% }); %>
-        </div>
-    </div>
-</body>
+    </body>
 
 
 
