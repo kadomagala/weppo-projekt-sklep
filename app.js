@@ -146,7 +146,6 @@ express()
             var bcrypt = require('bcryptjs');
 
             /* async
-
             var pwdhash;
             bcrypt.genSalt(1, function(err, salt) {
                 bcrypt.hash(pwd, salt, function(err, hash) {
@@ -176,11 +175,21 @@ express()
         res.render('login.ejs', data)
     })
     .get('/a-products', async(req, res) => {
+        /*
+        Niezbyt ładny ale raczej efektywny sposób edycji produktów:
+        Przekazuje sobie dane produktu do formularza poprzez url z już wyświetlanych informacji.
+        Potencjalne problemy:
+            za długi url
+            / i ' " " w url
+
+        */
+
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM items');
             const results = {
-                'results': (result) ? result.rows : null
+                'results': (result) ? result.rows : null,
+                'q': req.query
             };
             res.render('a-products', results);
             client.release();
@@ -188,6 +197,44 @@ express()
             console.error(err);
             res.send("Error " + err);
         }
+    }).post('/edit-product', async(req, res) => {
+        let id = req.body.id
+        let name = req.body.name;
+        let price = req.body.price;
+        let desc = req.body.description;
+        let img = req.body.image;
+
+        try {
+            const client = await pool.connect()
+            const result = await client.query(`UPDATE items SET name = $1, price = $2, description = $3,image = $4 WHERE id = $5`, [name, price, desc, img, id]);
+            client.release();
+        }
+        //to i tak nie działa ale sobie jest
+        catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
+
+        res.redirect('/a-products')
+    })
+    .post('/add-product', async(req, res) => {
+        let name = req.body.name;
+        let price = req.body.price;
+        let desc = req.body.description;
+        let img = req.body.image;
+
+        try {
+            const client = await pool.connect()
+            const result = await client.query(`INSERT INTO items (name,price,description,image) VALUES ($1, $2 ,$3, $4)`, [name, price, desc, img]);
+            client.release();
+        }
+        //to i tak nie działa ale sobie jest
+        catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
+
+        res.redirect('/a-products')
     })
     .use((req, res, next) => {
         res.render('404.ejs', {

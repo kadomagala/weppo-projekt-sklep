@@ -17,6 +17,11 @@ a {
     margin: 20px 0;
 }
 
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 
 /*
 *****************************************************************************************************************
@@ -224,7 +229,7 @@ th {
 }
 
 .a-products tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #efefef;
 }
 
 @media (min-width: 1200px) {

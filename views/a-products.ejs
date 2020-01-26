@@ -36,7 +36,7 @@
                                         <img src="<%= r.image %>" class="image">
                                     </th>
                                     <th>
-                                        <img src="https://i.ibb.co/Jxj5LWZ/edit.png" alt="Edit" class="edit-image">
+                                        <a href="?id=<%= r.id %>&name=<%= r.name %>&price=<%= r.price %>&desc=<%= r.description %>&img=<%= r.image %>#add-product-form"><img src="https://i.ibb.co/Jxj5LWZ/edit.png" alt="Edit" class="edit-image"></a>
                                     </th>
                                 </tr>
                                 <% }); %>
@@ -60,7 +60,7 @@
                                     <textarea name="description" form="add-product-form"></textarea>
 
                                     <label for="image"><b>Zdjęcie</b></label>
-                                    <input type="text" placeholder="Link do zdjęcia" name="image">
+                                    <input type="text" placeholder="Link do zdjęcia" name="image" value="https://i.picsum.photos/id/1000/300/300.jpg">
 
                                     <button type="submit" name="product-submit" class="formbtn">Dodaj produkt</button>
                                 </form>
@@ -70,19 +70,19 @@
                             <div class="form-container">
                                 <h2>Edytuj produkt</h2>
                                 <form action="/edit-product" method="POST" id="edit-product-form">
-                                    <input type="hidden" name="id" value="" required>
+                                    <input type="hidden" name="id" value="<%= q.id %>" required>
 
                                     <label for="name"><b>Nazwa</b></label>
-                                    <input type="text" name="name" required>
+                                    <input type="text" name="name" value="<%= q.name %>" required>
 
                                     <label for="price"><b>Cena</b></label>
-                                    <input type="text" name="price" required>
+                                    <input type="text" name="price" value="<%= q.price %>" required>
 
                                     <label for="description"><b>Opis</b></label>
-                                    <textarea name="description" form="edit-product-form"></textarea>
+                                    <textarea name="description" form="edit-product-form"><%= q.desc %></textarea>
 
                                     <label for="image"><b>Zdjęcie</b></label>
-                                    <input type="text" name="image">
+                                    <input type="text" name="image" value="<%= q.img %>">
 
                                     <button type="submit" name="product-submit" class="formbtn">Edytuj</button>
                                 </form>
