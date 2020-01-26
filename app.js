@@ -35,7 +35,6 @@ express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .get('/', async(req, res) => {
-        console.log(req.session);
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM items');
@@ -89,6 +88,7 @@ express()
         var data = {
             message: ""
         };
+        console.log(req.session)
         res.render('login.ejs', data);
     })
     .post('/login', async(req, res) => {
@@ -124,6 +124,10 @@ express()
             */
             if (bcrypt.compareSync(pwd, pwdhash)) {
                 data.message = "Zalogowano";
+                req.session.user = {
+                    email: email
+                };
+                console.log(req.session)
             } else {
                 data.message = "Błędne hasło";
             }
