@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<% include head.ejs %>
+
+    <body>
+        <% include navbar.ejs %>
+
+            <div class="body-wrap">
+                <div class="container">
+                    <div class="a-products">
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nazwa</th>
+                                <th>Opis</th>
+                                <th>Zdjęcie</th>
+                                <th>Edytuj</th>
+                            </tr>
+                            <% results.forEach(function(r) { %>
+                                <tr>
+                                    <th>
+                                        <%= r.id %>
+                                    </th>
+                                    <th>
+                                        <%= r.name %>
+                                    </th>
+                                    <th>
+                                        <%= r.description %>
+                                    </th>
+                                    <th>
+                                        <img src="<%= r.image %>" class="image">
+                                    </th>
+                                    <th>
+                                        <img src="https://i.ibb.co/Jxj5LWZ/edit.png" alt="Edit" class="edit-image">
+                                    </th>
+                                </tr>
+                                <% }); %>
+                        </table>
+                    </div>
+                </div>
+                <div class="constainer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-container">
+                                <h2>Dodaj produkt</h2>
+                                <form action="/add-product" method="POST" id="add-product-form">
+
+                                    <label for="name"><b>Wprowadź nazwe</b></label>
+                                    <input type="text" placeholder="Wprowadź nazwe" name="name" required>
+
+                                    <label for="description"><b>Wprowadź opis</b></label>
+                                    <textarea name="description" form="add-product-form"></textarea>
+
+                                    <label for="image"><b>Zdjęcie</b></label>
+                                    <input type="text" placeholder="Link do zdjęcia" name="image">
+
+                                    <button type="submit" name="product-submit" class="formbtn">Dodaj produkt</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-container">
+                                <h2>Edytuj produkt</h2>
+                                <form action="/edit-product" method="POST" id="product-form">
+                                    <input type="hidden" name="id" value="" required>
+
+                                    <label for="name"><b>Nazwa</b></label>
+                                    <input type="text" name="name" required>
+
+                                    <label for="description"><b>Opis</b></label>
+                                    <textarea name="description" form="product-form"></textarea>
+
+                                    <label for="image"><b>Zdjęcie</b></label>
+                                    <input type="text" name="image">
+
+                                    <button type="submit" name="product-submit" class="formbtn">Edytuj</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+
+</html>

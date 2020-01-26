@@ -34,7 +34,7 @@ express()
     .use(express.static(__dirname + '/public'))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
-    .get('/', async (req, res) => {
+    .get('/', async(req, res) => {
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM items');
@@ -48,7 +48,7 @@ express()
             res.send("Error " + err);
         }
     })
-    .get('/search', async (req, res) => {
+    .get('/search', async(req, res) => {
         try {
 
 
@@ -64,7 +64,7 @@ express()
             res.send("Error " + err);
         }
     })
-    .get('/product/:id(\\d+)', async (req, res) => {
+    .get('/product/:id(\\d+)', async(req, res) => {
         try {
             const client = await pool.connect()
 
@@ -84,13 +84,13 @@ express()
             res.send("Error " + err);
         }
     })
-    .get('/login', async (req, res) => {
+    .get('/login', async(req, res) => {
         var data = {
             message: ""
         };
         res.render('login.ejs', data);
     })
-    .post('/login', async (req, res) => {
+    .post('/login', async(req, res) => {
         let email = req.body.email;
         let pwd = req.body.password;
         var data = {
@@ -99,9 +99,9 @@ express()
 
         const client = await pool.connect()
         const result = await client.query('SELECT password FROM users WHERE email = $1', [email]);
-        if(result.rowCount > 0 ){
-            var pwdhash =  result.rows[0].password;
-            if(pwdhash== null || pwdhash == undefined) console.error("Błąd odczytu hasła z bazy danych");
+        if (result.rowCount > 0) {
+            var pwdhash = result.rows[0].password;
+            if (pwdhash == null || pwdhash == undefined) console.error("Błąd odczytu hasła z bazy danych");
             var bcrypt = require('bcryptjs');
             /* asynchronoczność nie działa bo nie umiem
             bcrypt.compare(pwd, pwdhash, function(err, res), {
@@ -121,19 +121,17 @@ express()
                 }
             });
             */
-            if(bcrypt.compareSync(pwd,pwdhash)){
+            if (bcrypt.compareSync(pwd, pwdhash)) {
                 data.message = "Zalogowano";
-            }
-            else {
+            } else {
                 data.message = "Błędne hasło";
             }
-        }
-        else {
+        } else {
             data.message = "Błędny e-mail";
         }
         res.render('login.ejs', data)
     })
-    .post('/register', async (req, res) => {
+    .post('/register', async(req, res) => {
         let email = req.body.email;
         let pwd = req.body.password;
         let pwd2 = req.body.password2;
@@ -141,11 +139,10 @@ express()
             message: ""
         };
         // DODAC ESCPAE 
-        if (pwd != pwd2){
+        if (pwd != pwd2) {
             data.message = "Hasła się różnią";
 
-        }
-        else {
+        } else {
             var bcrypt = require('bcryptjs');
 
             /* async
@@ -158,25 +155,39 @@ express()
             });
             */
 
-           var salt = bcrypt.genSaltSync(1);
-           var pwdhash = bcrypt.hashSync(pwd, salt);
+            var salt = bcrypt.genSaltSync(1);
+            var pwdhash = bcrypt.hashSync(pwd, salt);
 
 
             try {
                 const client = await pool.connect()
-                const result = await client.query(`INSERT INTO users (email,password,role) VALUES ($1, $2 ,$3)`, [email,pwdhash,'user']);
+                const result = await client.query(`INSERT INTO users (email,password,role) VALUES ($1, $2 ,$3)`, [email, pwdhash, 'user']);
                 data.message = "Zarejestrowano użytkownika";
-                client.release(); 
+                client.release();
             }
             //to i tak nie działa ale sobie jest
-            catch (err){
+            catch (err) {
                 console.error(err);
                 res.send("Error " + err);
                 data.message = "Błąd rejestracji";
             }
-        } 
+        }
 
         res.render('login.ejs', data)
+    })
+    .get('/a-products', async(req, res) => {
+        try {
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM items');
+            const results = {
+                'results': (result) ? result.rows : null
+            };
+            res.render('a-products', results);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
     })
     .use((req, res, next) => {
         res.render('404.ejs', {
