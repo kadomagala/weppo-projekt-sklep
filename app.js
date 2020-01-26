@@ -4,9 +4,7 @@ const fs = require('fs');
 const session = require('express-session')
 const PORT = process.env.PORT || 5000;
 var secret;
-const {
-    Pool
-} = require('pg');
+const { Pool } = require('pg');
 let pool;
 try {
     secret = JSON.parse(fs.readFileSync('secret.json'));
@@ -24,23 +22,20 @@ try {
     });
 }
 
-//console.log(secret)
-
-
-
 express()
     .use(express.urlencoded({
         extended: true
     }))
     .use(session({
         secret: secret.session.secret,
-        resave: false,
+        resave: true,
         saveUninitialized: true
     }))
     .use(express.static(__dirname + '/public'))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .get('/', async(req, res) => {
+        console.log(req.session);
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM items');
