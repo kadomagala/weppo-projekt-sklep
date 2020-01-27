@@ -75,14 +75,19 @@ Products
 }
 
 .product-cart {
-    height: 30px;
-    margin-top: 5px;
+    padding: 10px;
+    margin: 5px auto;
+    background: #4CAF50;
+    border: 1px solid #4b6342;
+}
+
+.product-cart a {
+    text-decoration: none;
 }
 
 .product-cart a img {
-    float: right;
     height: 40px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 

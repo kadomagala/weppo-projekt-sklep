@@ -20,6 +20,7 @@
                                     <div class="login">
                                         <form action="/login" method="POST">
                                             <div class="form-container">
+                                                <input type="hidden" value="<%= returnUrl %>" name="returnurl">
                                                 <label for="email"><b>Wprowadź e-mail</b></label>
                                                 <input type="text" placeholder="Wprowadź e-mail" name="email" required>
 

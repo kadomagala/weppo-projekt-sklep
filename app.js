@@ -2,10 +2,14 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs');
 const session = require('express-session')
+const Cart = require('./lib/Cart.js');
 const PORT = process.env.PORT || 5000;
 var secret;
 const { Pool } = require('pg');
 let pool;
+
+
+
 try {
     secret = JSON.parse(fs.readFileSync('secret.json'));
     pool = new Pool({
@@ -88,16 +92,20 @@ express()
         var data = {
             message: ""
         };
-        console.log(req.session)
+        if (req.query.returnUrl) {
+            data.returnUrl = req.query.returnUrl;
+        } else {
+            data.returnUrl = '/';
+        }
         res.render('login.ejs', data);
     })
     .post('/login', async(req, res) => {
         let email = req.body.email;
         let pwd = req.body.password;
         var data = {
-            message: ""
+            message: "",
+            returnUrl: req.body.returnurl
         };
-
         const client = await pool.connect()
         const result = await client.query('SELECT password FROM users WHERE email = $1', [email]);
         if (result.rowCount > 0) {
@@ -127,14 +135,17 @@ express()
                 req.session.user = {
                     email: email
                 };
-                console.log(req.session)
+                //console.log(req.session)
             } else {
                 data.message = "Błędne hasło";
             }
         } else {
             data.message = "Błędny e-mail";
         }
-        res.render('login.ejs', data)
+        if (req.body.returnurl)
+            res.redirect(req.body.returnurl);
+        else
+            res.render('login.ejs', data)
     })
     .post('/register', async(req, res) => {
         let email = req.body.email;
@@ -188,19 +199,22 @@ express()
             / i ' " " w url
 
         */
-
-        try {
-            const client = await pool.connect()
-            const result = await client.query('SELECT * FROM items');
-            const results = {
-                'results': (result) ? result.rows : null,
-                'q': req.query
-            };
-            res.render('a-products', results);
-            client.release();
-        } catch (err) {
-            console.error(err);
-            res.send("Error " + err);
+        if (!req.session.user) {
+            res.redirect('/login?returnUrl=/a-products');
+        } else {
+            try {
+                const client = await pool.connect()
+                const result = await client.query('SELECT * FROM items');
+                const results = {
+                    'results': (result) ? result.rows : null,
+                    'q': req.query
+                };
+                res.render('a-products', results);
+                client.release();
+            } catch (err) {
+                console.error(err);
+                res.send("Error " + err);
+            }
         }
     }).post('/edit-product', async(req, res) => {
         let id = req.body.id
@@ -240,6 +254,41 @@ express()
         }
 
         res.redirect('/a-products')
+    })
+    .get('/add-to-cart/:id(\\d+)', async(req, res) => {
+
+        if (req.session.user) {
+
+
+            if (req.headers.referer) {
+                res.redirect(req.headers.referer);
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            if (req.headers.referer) {
+                res.redirect('/login?returnUrl=' + req.headers.referer);
+            } else {
+                res.redirect('/login');
+            }
+        }
+
+        //console.log(req.params.id); // ADD TO CART
+    })
+    .get('/logout', async(req, res) => {
+
+        if (req.session.user) {
+            delete req.session.user;
+            if (req.headers.referer)
+                res.redirect(req.headers.referer);
+            else
+                res.redirect('/');
+        } else {
+            if (req.headers.referer)
+                res.redirect(req.headers.referer);
+            else
+                res.redirect('/');
+        }
     })
     .use((req, res, next) => {
         res.render('404.ejs', {
