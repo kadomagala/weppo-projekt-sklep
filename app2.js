@@ -18,8 +18,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use(async (req, res, next) => {
-    if(req.session.user){
+app.use(async(req, res, next) => {
+    if (req.session.user) {
         console.log("User logged");
     } else {
         console.log("User not logged");
@@ -32,7 +32,7 @@ app.use('/search', routes.search);
 app.use('/', routes.items);
 app.use('/', routes.auth);
 app.use('/', routes.cart);
-
+app.use('/', routes.admin);
 app.use((req, res, next) => {
     res.render('404.ejs', {
         url: req.url

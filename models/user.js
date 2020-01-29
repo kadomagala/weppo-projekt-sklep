@@ -1,34 +1,27 @@
 const user = (sequelize, DataTypes) => {
     const User = sequelize.define('users', {
-        id:{
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             unique: true
         },
-        email:{
+        email: {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false
         },
-        password:{
+        password: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        role:{
+        role: {
             type: DataTypes.STRING,
             defaultValue: "user"
         }
-    },{
+    }, {
         timestamps: false
     });
-
-    User.findByLogin = async login => {
-        let user = await User.findOne({
-            where: {email: login},
-        });
-        return user;
-    }
 
     return User;
 };

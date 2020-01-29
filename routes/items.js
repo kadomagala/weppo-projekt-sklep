@@ -1,26 +1,8 @@
 const express = require('express');
 const itemRepository = require('../repositories/itemRepository')
 
-
 const router = express.Router();
 
-router.get('/a-products', async(req, res) => {
-    if (!req.session.user) {
-        res.redirect('/login?returnUrl=/a-products');
-    } else {
-        try {
-            const result = await itemRepository.getAllProducts();
-            const results = {
-                'results': (result) ? result : null,
-                'q': req.query
-            };
-            res.render('a-products', results);
-        } catch (err) {
-            console.error(err);
-            res.send("Error " + err);
-        }
-    }
-});
 router.get('/product/:id(\\d+)', async(req, res) => {
     try {
         let id = req.params.id;

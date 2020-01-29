@@ -1,4 +1,4 @@
-const {Sequelize} = require ('sequelize');
+const { Sequelize } = require('sequelize');
 var pg = require('pg');
 pg.defaults.ssl = true;
 const fs = require('fs');
@@ -6,7 +6,7 @@ const config = require('../config');
 
 let sequelize = null;
 
-if (config.isProduction){
+if (config.isProduction) {
     sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         protocol: 'postgres',
@@ -15,8 +15,8 @@ if (config.isProduction){
         host: match[3],
         logging: true
     });
-}else{
-    try{
+} else {
+    try {
         let secret = JSON.parse(fs.readFileSync('secret.json'));
         sequelize = new Sequelize(secret.db.database, secret.db.user, secret.db.password, {
             host: secret.db.host,
@@ -24,11 +24,11 @@ if (config.isProduction){
             protocol: 'postgres',
             dialect: 'postgres'
         })
-    }catch(err){
+    } catch (err) {
         console.log(err)
         console.log("Unable to connect to db");
     }
-  
+
 }
 
 const model = {
@@ -39,4 +39,4 @@ const model = {
 
 sequelize.sync();
 
-module.exports = model, {sequelize};
+module.exports = model, { sequelize };

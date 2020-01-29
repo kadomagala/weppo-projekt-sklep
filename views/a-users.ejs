@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<% include head.ejs %>
+
+    <body>
+        <% include navbar.ejs %>
+
+            <div class="body-wrap">
+                <div class="container">
+                    <div class="a-users">
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>E-mail</th>
+                                <th>Rola</th>
+                                <th>Usuń</th>
+                            </tr>
+                            <% results.forEach(function(r) { %>
+                                <tr>
+                                    <th>
+                                        <%= r.id %>
+                                    </th>
+                                    <th>
+                                        <%= r.email %>
+                                    </th>
+                                    <th>
+                                        <%= r.role%>
+                                    </th>
+                                    <th>
+                                        <a href="/delete-user/<%= r.id %>"><i>Usuń</i></a>
+                                    </th>
+                                </tr>
+                                <% }); %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </body>
+
+</html>
