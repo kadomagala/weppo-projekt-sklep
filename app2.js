@@ -15,5 +15,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use('/', routes.dashboard);
+app.use('/search', routes.search);
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

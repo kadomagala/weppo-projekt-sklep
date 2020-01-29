@@ -1,22 +1,21 @@
 const express = require('express');
-const models = require( '../models');
 const itemsRepository = require('../repositories/itemRepository');
+
 const router = express.Router();
 
 
 router.get('/', async(req, res) => {
     try {
-        const items = await itemsRepository.getAllProducts();
-        
+        const result = await itemsRepository.searchProducts(req.query.q);
+
         const results = {
-            'results' : (items) ? items : null
+            'results': (result) ? result : null
         };
         res.render('index', results);
-
     } catch (err) {
         console.error(err);
         res.send("Error " + err);
     }
-});
+})
 
 module.exports = router;
