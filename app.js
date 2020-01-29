@@ -2,11 +2,16 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs');
 const session = require('express-session')
-const Cart = require('./lib/Cart.js');
+    //import { Item, Cart } from "./lib/Cart.js";
+    //import { Item } from './lib/Cart.js';
+    //import Cart from "./lib/Cart.js";
+const myCart = require('./lib/Cart');
 const PORT = process.env.PORT || 5000;
 var secret;
 const { Pool } = require('pg');
 let pool;
+
+
 
 
 
@@ -135,17 +140,22 @@ express()
                 req.session.user = {
                     email: email
                 };
-                //console.log(req.session)
+                if (req.body.returnurl != "/") {
+                    console.log("dupa1");
+                    console.log(req.body.returnurl);
+                    res.redirect(req.body.returnurl);
+                } else
+                    res.render('login.ejs', data)
+                    //console.log(req.session)
             } else {
                 data.message = "Błędne hasło";
+                res.render('login.ejs', data)
             }
         } else {
             data.message = "Błędny e-mail";
-        }
-        if (req.body.returnurl)
-            res.redirect(req.body.returnurl);
-        else
             res.render('login.ejs', data)
+        }
+
     })
     .post('/register', async(req, res) => {
         let email = req.body.email;
@@ -257,8 +267,26 @@ express()
     })
     .get('/add-to-cart/:id(\\d+)', async(req, res) => {
 
+
         if (req.session.user) {
 
+            if (req.session.user.cart) {
+                var item = new myCart.Item(req.params.id, 1);
+                var cart = new myCart.Cart(req.session.user.cart);
+                console.log('-------');
+                console.log('cart: ' + cart);
+                cart.addToCart(item);
+                console.log('cart2: ' + cart);
+                req.session.user.cart = cart;
+                console.log(req.session.user.cart);
+
+            } else {
+                console.log("Jestem");
+                req.session.user.cart = new myCart.Cart(null);
+                var item = new Item(req.params.id, 1);
+                req.session.user.cart.addToCart(item);
+                console.log(req.session.user.cart);
+            }
 
             if (req.headers.referer) {
                 res.redirect(req.headers.referer);
