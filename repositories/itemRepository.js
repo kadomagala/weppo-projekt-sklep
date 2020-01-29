@@ -12,6 +12,11 @@ class ItemRepository{
         const item = await models.Item.findOne({where: {id: id_}});
         return item;
     }
+
+    async getProductPrice(id_){
+        const item = await models.Item.findOne({where: {id: id_}});
+        return item.price;
+    }
     
     async insertProduct(name_, price_, description_, image_){
         const item = await models.Item.create({name: name_, price: price_, description: description_, image: image_});

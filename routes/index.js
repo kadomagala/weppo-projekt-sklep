@@ -1,7 +1,8 @@
-const dashboard = require("./dashboard");
-const auth = require("./auth");
-const cart = require("./auth");
-const search = require("./search");
+const dashboard = require('./dashboard');
+const auth = require('./auth');
+const cart = require('./cart');
+const search = require('./search');
+const items = require('./items');
 
 
-module.exports = {dashboard, auth, cart, search};
+module.exports = {dashboard, auth, cart, search, items};
