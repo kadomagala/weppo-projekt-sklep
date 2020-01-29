@@ -1,8 +1,12 @@
 const {Sequelize} = require ('sequelize');
+var pg = require('pg');
+pg.defaults.ssl = true;
 const fs = require('fs');
+const config = require('../config');
+
 let sequelize = null;
 
-if (process.env.DATABASE_URL){
+if (config.isProduction){
     sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         protocol: 'postgres',
@@ -14,9 +18,10 @@ if (process.env.DATABASE_URL){
 }else{
     try{
         let secret = JSON.parse(fs.readFileSync('secret.json'));
-        sequelize = new Sequelize(secret.testdb.database, secret.testdb.user, secret.testdb.password, {
-            host: secret.testdb.host,
+        sequelize = new Sequelize(secret.db.database, secret.db.user, secret.db.password, {
+            host: secret.db.host,
             ssl: true,
+            protocol: 'postgres',
             dialect: 'postgres'
         })
     }catch(err){
@@ -31,7 +36,7 @@ const model = {
     Item: sequelize.import('./item')
 
 };
-//sequelize.sync({ force: true });
+
+sequelize.sync();
 
 module.exports = model, {sequelize};
-// INSERT INTO items (name,price,description,image) VALUES ('Super but', 2.32 ,'blasdasdas', 'https://i.picsum.photos/id/1000/300/300.jpg');

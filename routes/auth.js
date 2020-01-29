@@ -76,7 +76,8 @@ router.post('/register', async(req, res) => {
     let pwd = req.body.password;
     let pwd2 = req.body.password2;
     var data = {
-        message: ""
+        message: "",
+        returnUrl: null
     };
     // DODAC ESCPAE 
     if (pwd != pwd2) {

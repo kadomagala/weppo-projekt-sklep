@@ -1,13 +1,9 @@
 const express = require('express');
 const path = require('path')
 const routes = require('./routes');
-const fs = require('fs');
+const config = require('./config');
 const session = require('express-session');
 
-
-const PORT = process.env.PORT || 5000;
-
-var secret = JSON.parse(fs.readFileSync('secret.json'));
 const app = express();
 
 app.use(express.urlencoded({
@@ -18,14 +14,29 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(session({
-    secret: (secret) ? secret.session.secret : process.env.SECRET_SESSION,
+    secret: config.session_secret,
     resave: true,
     saveUninitialized: true
 }));
+app.use(async (req, res, next) => {
+    if(req.session.user){
+        console.log("User logged");
+    } else {
+        console.log("User not logged");
+    }
+    next();
+});
 
 app.use('/', routes.dashboard);
 app.use('/search', routes.search);
 app.use('/', routes.items);
 app.use('/', routes.auth);
+app.use('/', routes.cart);
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.use((req, res, next) => {
+    res.render('404.ejs', {
+        url: req.url
+    });
+});
+
+app.listen(config.PORT, () => console.log(`Listening on ${ config.PORT }`));
