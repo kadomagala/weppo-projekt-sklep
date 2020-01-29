@@ -74,6 +74,22 @@ Products
     margin-left: 20px;
 }
 
+.product-cart {
+    padding: 10px;
+    margin: 5px auto;
+    background: #4CAF50;
+    border: 1px solid #4b6342;
+}
+
+.product-cart a {
+    text-decoration: none;
+}
+
+.product-cart a img {
+    height: 40px;
+    margin-right: 5px;
+}
+
 
 /*
 *****************************************************************************************************************
