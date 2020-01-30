@@ -56,9 +56,9 @@ router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
         }
     } else {
         if (req.headers.referer) {
-            res.redirect('/login?returnUrl=' + req.headers.referer);
+            res.redirect('/login?returnUrl=' + req.headers.referer + '&ai=1');
         } else {
-            res.redirect('/login');
+            res.redirect('/login?ai=1');
         }
     }
 });

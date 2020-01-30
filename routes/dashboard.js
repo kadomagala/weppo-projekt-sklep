@@ -11,7 +11,7 @@ router.get('/', async(req, res) => {
         const results = {
             'results': (items) ? items : null
         };
-        console.log(results);
+        //console.log(results);
         res.render('index', results);
 
     } catch (err) {

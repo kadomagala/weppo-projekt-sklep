@@ -132,11 +132,11 @@ Navbar
     text-decoration: none;
 }
 
-.navbar li:last-child {
+.navbar li img {
     margin-top: -5px;
 }
 
-.navbar li:hover:not(:last-child) {
+.navbar li:hover:not(a> img) {
     opacity: 0.6;
 }
 
@@ -169,6 +169,30 @@ Navbar
     margin: 0px;
     padding: 20px;
     border: none;
+}
+
+.admin-menu {
+    opacity: 1!important;
+}
+
+.admin-menu>ol {
+    display: none;
+    margin-top: 60px;
+}
+
+.admin-menu:hover>ol {
+    position: inherit;
+    float: left;
+    display: contents;
+}
+
+.admin-menu:hover>ol>li {
+    list-style: none;
+    width: 100px;
+    background: #888;
+    margin-left: -30px;
+    padding: 5px;
+    border: 1px solid black;
 }
 
 

@@ -6,13 +6,17 @@ const router = express.Router();
 
 router.get('/login', async(req, res) => {
     var data = {
-        message: ""
+        message: "",
+        returnUrl: req.query.returnUrl ? (req.query.returnUrl) : '/',
+        ai: req.query.ai ? req.query.ai : null
     };
-    if (req.query.returnUrl) {
-        data.returnUrl = req.query.returnUrl;
-    } else {
-        data.returnUrl = '/';
-    }
+    // if (req.query.returnUrl) {
+    //     data.returnUrl = req.query.returnUrl;
+    // } else {
+    //     data.returnUrl = '/';
+    // }
+
+
     res.render('login.ejs', data);
 });
 
@@ -53,16 +57,10 @@ router.post('/login', async(req, res) => {
             req.session.user = {
                 email: email,
                 role: result.role ? result.role : null
-                    //TODO Role
             };
-            if (req.body.returnurl != "/") { //TODO usunąć pętle przekierowania po zarejestrowaniu
+            if (req.body.returnurl != "/") {
                 res.redirect(req.body.returnurl);
-                // console.log('1---------- \n' + req.body.returnurl);
             } else {
-                // if (req.headers.referer) {
-                //     console.log('2---------- \n' + req.headers.referer);
-                //     res.redirect(req.headers.referer);
-                // } else
                 res.redirect('/');
             }
         } else {
@@ -73,7 +71,6 @@ router.post('/login', async(req, res) => {
         data.message = "Błędny e-mail";
         res.render('login.ejs', data)
     }
-
 });
 
 router.post('/register', async(req, res) => {
@@ -101,19 +98,19 @@ router.post('/register', async(req, res) => {
         var salt = bcrypt.genSaltSync(1);
         var pwdhash = bcrypt.hashSync(pwd, salt);
         try {
-            // TODO jeśli użytkownik istnieje to niech się akpka nie sypie
-            const result = await usersRepository.createUser(email, pwdhash, 'user');
-            data.message = "Zarejestrowano użytkownika";
-
-        }
-        //to i tak nie działa ale sobie jest
-        catch (err) {
+            var user = await usersRepository.getUserByEmail(email);
+            if (user) {
+                data.message = "E-mail już użyty";
+            } else {
+                const result = await usersRepository.createUser(email, pwdhash, 'user');
+                data.message = "Zarejestrowano użytkownika";
+            }
+        } catch (err) {
             console.error(err);
             res.send("Error " + err);
             data.message = "Błąd rejestracji";
         }
     }
-
     res.render('login.ejs', data)
 });
 
