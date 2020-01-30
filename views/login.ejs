@@ -14,47 +14,52 @@
                         </div>
 
                         <% } %>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h1>Zaloguj się</h1>
-                                    <div class="login">
-                                        <form action="/login" method="POST">
-                                            <div class="form-container">
-                                                <input type="hidden" value="<%= returnUrl %>" name="returnurl">
-                                                <label for="email"><b>Wprowadź e-mail</b></label>
-                                                <input type="text" placeholder="Wprowadź e-mail" name="email" autofocus required>
+                            <% if(!user){ %>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h1>Zaloguj się</h1>
+                                        <div class="login">
+                                            <form action="/login" method="POST">
+                                                <div class="form-container">
+                                                    <input type="hidden" value="<%= returnUrl %>" name="returnurl">
+                                                    <label for="email"><b>Wprowadź e-mail</b></label>
+                                                    <input type="text" placeholder="Wprowadź e-mail" name="email" autofocus required>
 
-                                                <label for="password"><b>Podaj hasło</b></label>
-                                                <input type="password" placeholder="Podaj hasło" name="password" required>
+                                                    <label for="password"><b>Podaj hasło</b></label>
+                                                    <input type="password" placeholder="Podaj hasło" name="password" required>
 
-                                                <button type="submit" name="login-submit" class="formbtn">Zaloguj się</button>
+                                                    <button type="submit" name="login-submit" class="formbtn">Zaloguj się</button>
 
-                                            </div>
-                                        </form>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="register">
+                                            <h1>Zarejestruj się</h1>
+                                            <form action="/register" method="POST">
+                                                <div class="form-container">
+                                                    <label for="email"><b>Wprowadź e-mail</b></label>
+                                                    <input type="text" placeholder="Wprowadź e-mail" name="email" required>
+
+                                                    <label for="password"><b>Podaj hasło</b></label>
+                                                    <input type="password" placeholder="Podaj hasło" name="password" required>
+
+                                                    <label for="password2"><b>Podaj ponownie hasło</b></label>
+                                                    <input type="password" placeholder="Podaj ponownie hasło" name="password2" required>
+
+                                                    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                                                    <button type="submit" class="formbtn" name="register-submit">Zarejestuj się</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="col-sm-6">
-                                    <div class="register">
-                                        <h1>Zarejestruj się</h1>
-                                        <form action="/register" method="POST">
-                                            <div class="form-container">
-                                                <label for="email"><b>Wprowadź e-mail</b></label>
-                                                <input type="text" placeholder="Wprowadź e-mail" name="email" required>
-
-                                                <label for="password"><b>Podaj hasło</b></label>
-                                                <input type="password" placeholder="Podaj hasło" name="password" required>
-
-                                                <label for="password2"><b>Podaj ponownie hasło</b></label>
-                                                <input type="password" placeholder="Podaj ponownie hasło" name="password2" required>
-
-                                                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                                                <button type="submit" class="formbtn" name="register-submit">Zarejestuj się</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                                <% }else{ %>
+                                    <h1>Jesteś zalogowany</h1>
+                                    <a href="/logout">Wyloguj się</a>
+                                    <% } %>
                 </div>
             </div>
 

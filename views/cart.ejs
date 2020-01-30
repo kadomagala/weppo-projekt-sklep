@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<% include head.ejs %>
+
+    <body>
+        <% include navbar.ejs %>
+            <div class="body-wrap">
+                <h2>Koszyk</h2>
+                <div class="products row">
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Liczba</th>
+                            <th>Usuń</th>
+
+                        </tr>
+                        <% Array.from(results.items).forEach(item => { %>
+                            <tr>
+                                <th>
+                                    <%= item.id %>
+                                </th>
+                                <th>
+                                    <%= item.quantity %>
+                                </th>
+                                <th>
+                                    TODO
+                                </th>
+                            </tr>
+                            <%  });  %>
+                    </table>
+
+                </div>
+    </body>
+
+
+
+</html>

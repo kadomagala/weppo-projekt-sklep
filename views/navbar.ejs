@@ -13,10 +13,20 @@
         <ul class="nav navbar-right" data-in="fadeIn" data-out="fadeOut">
             <li><a href="/">Strona główna</a></li>
             <li><a href="/products">Produkty</a></li>
-            <li><a href="/login">Zaloguj się</a></li>
-            <li>
-                <a href="/cart"><img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px"></a>
-            </li>
+            <% if(user){ %>
+                <li><a href="/logout">Wyloguj się</a></li>
+                <% }else{ %>
+                    <li><a href="/login">Zaloguj się</a></li>
+                    <% } %>
+                        <li>
+                            <a href="/cart">
+                                <% if(cart){ %>
+                                    <img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px">
+                                    <% }else{ %>
+                                        <img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px" class="opacity02">
+                                        <% } %>
+                            </a>
+                        </li>
         </ul>
     </div>
 

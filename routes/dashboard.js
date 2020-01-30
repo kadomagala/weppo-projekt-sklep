@@ -1,16 +1,17 @@
 const express = require('express');
-const itemsRepository = require('../repositories/itemRepository');
+const itemRepository = require('../repositories/itemRepository');
 
 const router = express.Router();
 
 
 router.get('/', async(req, res) => {
     try {
-        const items = await itemsRepository.getAllProducts();
-        
+        const items = await itemRepository.getAllProducts();
+
         const results = {
-            'results' : (items) ? items : null
+            'results': (items) ? items : null
         };
+        console.log(results);
         res.render('index', results);
 
     } catch (err) {

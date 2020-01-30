@@ -13,7 +13,7 @@ if (config.isProduction) {
         ssl: true,
         port: match[4],
         host: match[3],
-        logging: true
+        logging: false
     });
 } else {
     try {
@@ -22,7 +22,8 @@ if (config.isProduction) {
             host: secret.db.host,
             ssl: true,
             protocol: 'postgres',
-            dialect: 'postgres'
+            dialect: 'postgres',
+            logging: false
         })
     } catch (err) {
         console.log(err)

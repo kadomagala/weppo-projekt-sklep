@@ -22,6 +22,10 @@ a {
     margin-right: 0px;
 }
 
+.opacity02 {
+    opacity: 0.2;
+}
+
 
 /*
 *****************************************************************************************************************
@@ -132,7 +136,7 @@ Navbar
     margin-top: -5px;
 }
 
-.navbar li:hover {
+.navbar li:hover:not(:last-child) {
     opacity: 0.6;
 }
 

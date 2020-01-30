@@ -52,14 +52,18 @@ router.post('/login', async(req, res) => {
             data.message = "Zalogowano";
             req.session.user = {
                 email: email
+                    //TODO Role
             };
-            if (req.body.returnurl != "/") {
-                console.log("dupa1");
-                console.log(req.body.returnurl);
+            if (req.body.returnurl != "/") { //TODO usunąć pętle przekierowania po zarejestrowaniu
                 res.redirect(req.body.returnurl);
-            } else
-                res.render('login.ejs', data)
-                //console.log(req.session)
+                // console.log('1---------- \n' + req.body.returnurl);
+            } else {
+                // if (req.headers.referer) {
+                //     console.log('2---------- \n' + req.headers.referer);
+                //     res.redirect(req.headers.referer);
+                // } else
+                res.redirect('/');
+            }
         } else {
             data.message = "Błędne hasło";
             res.render('login.ejs', data)
