@@ -23,6 +23,7 @@ app.use(async(req, res, next) => {
         //console.log("User logged");
         req.app.locals.user = req.session.user;
         req.app.locals.cart = req.session.user.cart;
+        //console.log('user ' + req.app.locals.user.role);
     } else {
         //console.log("User not logged");
         req.app.locals.user = null;

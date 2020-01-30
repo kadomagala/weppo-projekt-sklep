@@ -6,9 +6,7 @@ const session = require('express-session');
 const router = express.Router();
 
 router.get('/a-products', async(req, res) => {
-    if (!req.session.user) {
-        res.redirect('/login?returnUrl=/a-products');
-    } else {
+    if (req.session.user && req.session.user.role == 'admin') {
         try {
             const result = await itemRepository.getAllProducts();
             const results = {
@@ -20,18 +18,20 @@ router.get('/a-products', async(req, res) => {
             console.error(err);
             res.send("Error " + err);
         }
+    } else {
+        res.redirect('/login?returnUrl=/a-products');
     }
 })
 
 router.get('/a-users', async(req, res) => {
-    if (!req.session.user) {
-        res.redirect('/login?returnUrl=/a-products');
-    } else {
+    if (req.session.user && req.session.user.role == 'admin') {
         const users = await usersRepository.getAllUsers();
         const results = {
             'results': users
         };
         res.render('a-users', results);
+    } else {
+        res.redirect('/login?returnUrl=/a-products');
     }
 
 })

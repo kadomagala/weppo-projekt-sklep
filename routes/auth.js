@@ -51,7 +51,8 @@ router.post('/login', async(req, res) => {
         if (bcrypt.compareSync(pwd, pwdhash)) {
             data.message = "Zalogowano";
             req.session.user = {
-                email: email
+                email: email,
+                role: result.role ? result.role : null
                     //TODO Role
             };
             if (req.body.returnurl != "/") { //TODO usunąć pętle przekierowania po zarejestrowaniu
@@ -81,7 +82,7 @@ router.post('/register', async(req, res) => {
     let pwd2 = req.body.password2;
     var data = {
         message: "",
-        returnUrl: null
+        returnUrl: "/"
     };
     // DODAC ESCPAE 
     if (pwd != pwd2) {
@@ -89,7 +90,6 @@ router.post('/register', async(req, res) => {
 
     } else {
         var bcrypt = require('bcryptjs');
-
         /* async
         var pwdhash;
         bcrypt.genSalt(1, function(err, salt) {
@@ -98,12 +98,10 @@ router.post('/register', async(req, res) => {
             });
         });
         */
-
         var salt = bcrypt.genSaltSync(1);
         var pwdhash = bcrypt.hashSync(pwd, salt);
-
-
         try {
+            // TODO jeśli użytkownik istnieje to niech się akpka nie sypie
             const result = await usersRepository.createUser(email, pwdhash, 'user');
             data.message = "Zarejestrowano użytkownika";
 

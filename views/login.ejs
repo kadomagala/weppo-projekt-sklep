@@ -57,7 +57,9 @@
                                     </div>
                                 </div>
                                 <% }else{ %>
-                                    <h1>Jesteś zalogowany</h1>
+                                    <h1>Jesteś zalogowany jako
+                                        <b><%= user.role %></b>
+                                    </h1>
                                     <a href="/logout">Wyloguj się</a>
                                     <% } %>
                 </div>
