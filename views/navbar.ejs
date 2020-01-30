@@ -18,15 +18,24 @@
                 <% }else{ %>
                     <li><a href="/login">Zaloguj się</a></li>
                     <% } %>
-                        <li>
-                            <a href="/cart">
-                                <% if(cart){ %>
-                                    <img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px">
-                                    <% }else{ %>
-                                        <img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px" class="opacity02">
-                                        <% } %>
-                            </a>
-                        </li>
+                        <% if( user && user.role == 'admin') { %>
+                            <li class="admin-menu">
+                                <a href="">Admin menu</a>
+                                <ol>
+                                    <li><a href="/a-products">Produkty</a></li>
+                                    <li><a href="/a-users">Użytkownicy</a></li>
+                                </ol>
+                            </li class="admin-menu">
+                            <% } %>
+                                <li>
+                                    <a href="/cart">
+                                        <% if(cart){ %>
+                                            <img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px">
+                                            <% }else{ %>
+                                                <img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" height="40px" class="opacity02">
+                                                <% } %>
+                                    </a>
+                                </li>
         </ul>
     </div>
 
