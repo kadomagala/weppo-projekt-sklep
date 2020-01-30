@@ -6,13 +6,17 @@ const router = express.Router();
 
 router.get('/login', async(req, res) => {
     var data = {
-        message: ""
+        message: "",
+        returnUrl: req.query.returnUrl ? (req.query.returnUrl) : '/',
+        ai: req.query.ai ? req.query.ai : null
     };
-    if (req.query.returnUrl) {
-        data.returnUrl = req.query.returnUrl;
-    } else {
-        data.returnUrl = '/';
-    }
+    // if (req.query.returnUrl) {
+    //     data.returnUrl = req.query.returnUrl;
+    // } else {
+    //     data.returnUrl = '/';
+    // }
+
+
     res.render('login.ejs', data);
 });
 
