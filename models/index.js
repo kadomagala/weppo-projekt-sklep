@@ -34,7 +34,9 @@ if (config.isProduction) {
 
 const model = {
     User: sequelize.import('./user'),
-    Item: sequelize.import('./item')
+    Item: sequelize.import('./item'),
+    OrdersItems: sequelize.import('./ordersItems'),
+    Order: sequelize.import('./order')
 
 };
 

@@ -25,11 +25,8 @@ const item = (sequelize, DataTypes) => {
         timestamps: false
     });
 
-    Item.findById = async identifier => {
-        let item = await Item.findOne({
-            where: {id: identifier}
-        });
-        return item;
+    Item.associate = function(models){
+        Item.belongsToMany(models.Order, {through: 'OrdersItems', foreignKey: 'itemId' , as: 'orders'});
     };
     return Item;
 };
