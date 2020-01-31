@@ -9,18 +9,24 @@
                 <div class="products row">
                     <table>
                         <tr>
-                            <th>ID</th>
-                            <th>Liczba</th>
+                            <th>Nazwa</th>
+                            <th>Zdjęcie</th>
+                            <th>Cena</th>
                             <th>Usuń</th>
 
                         </tr>
-                        <% Array.from(results.items).forEach(item => { %>
+                        <% var total = 0;
+                        Array.from(products).forEach(item => { 
+                            total += Number(item.price);  %>
                             <tr>
                                 <th>
-                                    <%= item.id %>
+                                    <%= item.name %>
                                 </th>
                                 <th>
-                                    <%= item.quantity %>
+                                    <img src="<%= item.image %>" alt="" height="50px">
+                                </th>
+                                <th>
+                                    <%= item.price %>
                                 </th>
                                 <th>
                                     TODO
@@ -30,6 +36,9 @@
                     </table>
 
                 </div>
+                <p>Całkowity koszt
+                    <%= total %>
+                </p>
     </body>
 
 

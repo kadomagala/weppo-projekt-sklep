@@ -25,7 +25,8 @@ router.post('/login', async(req, res) => {
     let pwd = req.body.password;
     var data = {
         message: "",
-        returnUrl: req.body.returnUrl
+        returnUrl: req.body.returnUrl,
+        ai: req.query.ai ? req.query.ai : null
     };
 
     const result = await usersRepository.getUserByEmail(email);
@@ -60,6 +61,7 @@ router.post('/login', async(req, res) => {
             };
             if (req.body.returnurl != "/") {
                 res.redirect(req.body.returnurl);
+                //TODO po zalogowanie dalej jest /login?returnURL
             } else {
                 res.redirect('/');
             }
@@ -79,7 +81,8 @@ router.post('/register', async(req, res) => {
     let pwd2 = req.body.password2;
     var data = {
         message: "",
-        returnUrl: "/"
+        returnUrl: "/",
+        ai: req.query.ai ? req.query.ai : null
     };
     // DODAC ESCPAE 
     if (pwd != pwd2) {

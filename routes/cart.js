@@ -1,6 +1,7 @@
 const express = require('express');
 const models = require('../models');
 const { Cart, Item } = require('../lib/Cart');
+const itemRepository = require('../repositories/itemRepository')
 
 const router = express.Router();
 
@@ -8,10 +9,18 @@ router.get('/cart', async(req, res) => {
 
     if (req.session.user) {
         if (req.session.user.cart) {
+
             //console.log("--------------------------");
             //console.log(req.session.user.cart);
+
+
+            var cart = new Cart(req.session.user.cart);
+            var products = await itemRepository.getProductsByID(cart.productsids());
+            console.log('products \n' + products);
+            console.log('products.items \n' + products.items);
             const data = {
-                'results': req.session.user.cart
+                'results': req.session.user.cart,
+                'products': products
             };
             res.render('cart', data)
         } else {
@@ -22,11 +31,7 @@ router.get('/cart', async(req, res) => {
             }
         }
     } else {
-        if (req.headers.referer) {
-            res.redirect('/login?returnUrl=' + req.headers.referer);
-        } else {
-            res.redirect('/login');
-        }
+        res.redirect('/login?returnUrl=/cart');
     }
 });
 
