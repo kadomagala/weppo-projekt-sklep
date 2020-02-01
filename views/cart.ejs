@@ -13,6 +13,9 @@
                             <th>Zdjęcie</th>
                             <th>Cena</th>
                             <th>Usuń</th>
+                            <th>Liczba</th>
+                            <th>Dodaj</th>
+                            <th>Warotść</th>
 
                         </tr>
                         <% 
@@ -28,17 +31,16 @@
                                     <%= item.price %>
                                 </th>
                                 <th>
-<<<<<<< HEAD
+                                    <a href="/remove-from-cart/<%= item.id %>"><b>-</b></a>
+                                </th>
+                                <th>
                                     <%= item.quantity %>
                                 </th>
                                 <th>
-                                    INCREASE
+                                    <a href="/add-to-cart/<%= item.id %>"><b>+</b></a>
                                 </th>
                                 <th>
-                                    DELETE
-=======
-                                    <a href="/remove-from-cart/<%= item.id %>">Usuń</a>
->>>>>>> 517307825bfa0cbab83207e2463039c6781c863d
+                                    <%= item.itemTotal %>
                                 </th>
                             </tr>
                             <%  });  %>
