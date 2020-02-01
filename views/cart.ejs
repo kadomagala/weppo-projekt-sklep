@@ -15,9 +15,8 @@
                             <th>Usuń</th>
 
                         </tr>
-                        <% var total = 0;
-                        Array.from(products).forEach(item => { 
-                            total += Number(item.price);  %>
+                        <% 
+                        products.forEach(item => { %>
                             <tr>
                                 <th>
                                     <%= item.name %>
@@ -29,7 +28,13 @@
                                     <%= item.price %>
                                 </th>
                                 <th>
-                                    TODO
+                                    <%= item.quantity %>
+                                </th>
+                                <th>
+                                    INCREASE
+                                </th>
+                                <th>
+                                    DELETE
                                 </th>
                             </tr>
                             <%  });  %>

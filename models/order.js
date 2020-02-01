@@ -14,9 +14,12 @@ const order = (sequelize, DataTypes) => {
                 key: 'id'
             }
         },
-        orderValue: {
+        total: {
             type: DataTypes.DECIMAL,
             allowNull: false,
+        },
+        date: {
+            type: DataTypes.DATE
         }
     },{
         timestamps: false
