@@ -16,8 +16,8 @@ router.get('/cart', async(req, res) => {
 
             var cart = new Cart(req.session.user.cart);
             var products = await itemRepository.getProductsByID(cart.productsids());
-            console.log('products \n' + products);
-            console.log('products.items \n' + products.items);
+            //console.log('products \n' + products);
+            //console.log('products.items \n' + products.items);
             const data = {
                 'results': req.session.user.cart,
                 'products': products
@@ -38,10 +38,7 @@ router.get('/cart', async(req, res) => {
 
 
 router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
-
-
     if (req.session.user) {
-
         if (req.session.user.cart) {
             var item = new Item(req.params.id, 1);
             var cart = new Cart(req.session.user.cart);
@@ -68,4 +65,30 @@ router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
     }
 });
 
+router.get('/remove-from-cart/:id(\\d+)', async(req, res) => {
+
+
+    if (req.session.user) {
+
+        if (req.session.user.cart) {
+            var item = new Item(req.params.id, 1);
+            var cart = new Cart(req.session.user.cart);
+            cart.removeFromCart(item);
+            req.session.user.cart = cart;
+        } else {
+            console.error("Removing item from without cart");
+        }
+        if (req.headers.referer) {
+            res.redirect(req.headers.referer);
+        } else {
+            res.redirect('/cart');
+        }
+    } else {
+        if (req.headers.referer) {
+            res.redirect('/login?returnUrl=' + req.headers.referer);
+        } else {
+            res.redirect('/login?ai=1');
+        }
+    }
+});
 module.exports = router;
