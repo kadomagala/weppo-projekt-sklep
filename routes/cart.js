@@ -96,4 +96,38 @@ router.get('/remove-from-cart/:id(\\d+)', async(req, res) => {
         }
     }
 });
+
+router.get('/cart-summary', async(req, res)=> {
+    if (req.session.user) {
+        if (req.session.user.cart) {
+
+            //console.log("--------------------------");
+            //console.log(req.session.user.cart);
+
+
+            var cart = new Cart(req.session.user.cart);
+            //console.log("cart: " + cart.items);
+            var order = new Order(cart);
+            var products = await order.getOrder();
+            var total = order.getTotal();
+
+            const data = {
+                'results': req.session.user.cart,
+                'products': products,
+                'total': total
+            };
+            res.render('cart', data)
+        } else {
+            if (req.headers.referer) {
+                res.redirect(req.headers.referer);
+            } else {
+                res.redirect('/');
+            }
+        }
+    } else {
+        res.redirect('/login?returnUrl=/cart');
+    }
+});
+
+
 module.exports = router;

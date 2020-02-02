@@ -5,9 +5,12 @@ const { Op } = require("sequelize");
 class OrderRepository{
 
     async getAllOrders(){
-        console.log("sie wyjebalem");
         const orders = await models.Order.findAll({include: [{model: models.Item, as:'items'}]});
         return orders;
+    }
+
+    async getOrderById(id){
+        return await models.Order.findOne({include: [{model: model.Item, as: 'items'}], where: {id: id}});
     }
 
     async makeNewOrder(userEmail, order){
