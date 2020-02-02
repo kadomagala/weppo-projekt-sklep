@@ -40,6 +40,12 @@ const model = {
 
 };
 
+model.Item.associate(model);
+model.Order.associate(model);
+model.OrdersItems.associate(model);
+
+
 sequelize.sync();
+// sequelize.sync({alter: true});
 
 module.exports = model, { sequelize };

@@ -2,6 +2,7 @@ const express = require('express');
 const models = require('../models');
 const { Cart, Item } = require('../lib/Cart');
 const itemRepository = require('../repositories/itemRepository');
+const orderRepository = require('../repositories/orderRepository');
 const { Order } = require('../lib/Order');
 
 const router = express.Router();
@@ -19,10 +20,7 @@ router.get('/cart', async(req, res) => {
             var order = new Order(cart);
             var products = await order.getOrder();
             var total = order.getTotal();
-            //var products = await itemRepository.getProductsByID(cart.productsids());
 
-            //console.log('products \n' + products);
-            //console.log('products.items \n' + products.items);
             const data = {
                 'results': req.session.user.cart,
                 'products': products,
