@@ -3,9 +3,11 @@ const models = require('../models');
 class UserRepository {
 
     async getAllUsers() {
-        const users = await models.User.findAll({ order: [
+        const users = await models.User.findAll({
+            order: [
                 ['id', 'ASC']
-            ] });
+            ]
+        });
         return users;
     }
 

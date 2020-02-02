@@ -14,10 +14,7 @@ class ItemRepository {
 
     async getProductByID(id_) {
         const item = await models.Item.findOne({
-            where: { id: id_ },
-            order: [
-                ['id', 'ASC']
-            ]
+            where: { id: id_ }
         });
         return item;
     }

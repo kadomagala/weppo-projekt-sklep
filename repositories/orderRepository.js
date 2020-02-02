@@ -1,21 +1,21 @@
 const models = require('../models');
 const { Op } = require("sequelize");
 
-class OrderRepository{
+class OrderRepository {
 
-    async getAllOrders(){
-        
-    }
-
-    async getOrderById(orderId){
+    async getAllOrders() {
 
     }
 
-    async addProductToOrder(productId, orderId){
+    async getOrderById(orderId) {
 
     }
 
-    
+    async addProductToOrder(productId, orderId) {
+
+    }
+
+
 
 }
 

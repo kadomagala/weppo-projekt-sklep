@@ -7,7 +7,6 @@ const { Order } = require('../lib/Order');
 const router = express.Router();
 
 router.get('/cart', async(req, res) => {
-
     if (req.session.user) {
         if (req.session.user.cart) {
 
@@ -38,7 +37,8 @@ router.get('/cart', async(req, res) => {
             }
         }
     } else {
-        res.redirect('/login?returnUrl=/cart');
+        res.redirect('/login?returnUrl=/cart&ai=1');
+        //ai = adding item (to cart)
     }
 });
 

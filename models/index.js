@@ -26,8 +26,8 @@ if (config.isProduction) {
             logging: false
         })
     } catch (err) {
-        console.log(err)
         console.log("Unable to connect to db");
+        console.log(err)
     }
 
 }
