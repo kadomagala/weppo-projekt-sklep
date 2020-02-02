@@ -21,23 +21,23 @@
                             <% results.forEach(function(r) { %>
                                 <tr>
                                     <th>
-                                        <%= r.orderId %>
+                                        <%= r.id %>
                                     </th>
                                     <th>
-                                        <%= r.userId%>
+                                        <%= r.userId %>
                                     </th>
                                     <th>
                                         <%= r.date %>
                                     </th>
                                     <th>
-                                        <%= r.total%>
+                                        <%= r.total %>
                                     </th>
                                     <th>
                                         <% r.items.forEach(function(i) { %>
                                             <ul>
                                                 <li>
                                                     <%= i.id%> -
-                                                        <%= i.quantity>
+                                                        <%= i.quantity %>
                                                     </li>
                                                 </ul>
                                             <% }); %>

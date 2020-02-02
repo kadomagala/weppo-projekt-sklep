@@ -111,12 +111,14 @@ router.get('/cart-summary', async(req, res)=> {
             var products = await order.getOrder();
             var total = order.getTotal();
 
+            var new_order = await orderRepository.makeNewOrder(req.session.user.email, order);
+
+            var my_order = await orderRepository.getAllOrders();
+            console.log(my_order[0]);
             const data = {
-                'results': req.session.user.cart,
-                'products': products,
-                'total': total
+                'results': my_order
             };
-            res.render('cart', data)
+            res.render('a-orders', data)
         } else {
             if (req.headers.referer) {
                 res.redirect(req.headers.referer);
@@ -125,7 +127,7 @@ router.get('/cart-summary', async(req, res)=> {
             }
         }
     } else {
-        res.redirect('/login?returnUrl=/cart');
+        res.redirect('/login?returnUrl=/');
     }
 });
 
