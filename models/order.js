@@ -15,8 +15,7 @@ const order = (sequelize, DataTypes) => {
             }
         },
         total: {
-            type: DataTypes.DECIMAL,
-            allowNull: false,
+            type: DataTypes.DECIMAL
         },
         date: {
             type: DataTypes.DATE
@@ -26,7 +25,7 @@ const order = (sequelize, DataTypes) => {
     });
     Order.associate = function(models){
         Order.belongsTo(models.User, {foreignKey: 'userId', as: 'customer'});
-        Order.belongsToMany(models.Item, {through: 'OrdersItems', foreignKey: 'orderId', as: 'items'})
+        Order.belongsToMany(models.Item, {through: models.OrdersItems, foreignKey: 'orderId', as: 'items'});
     }
     return Order;
 

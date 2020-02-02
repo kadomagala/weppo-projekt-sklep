@@ -26,7 +26,7 @@ const item = (sequelize, DataTypes) => {
     });
 
     Item.associate = function(models){
-        Item.belongsToMany(models.Order, {through: 'OrdersItems', foreignKey: 'itemId' , as: 'orders'});
+        Item.belongsToMany(models.Order, {through: models.OrdersItems, foreignKey: 'itemId' , as: 'orders'});
     };
     return Item;
 };

@@ -11,6 +11,10 @@ const ordersItems = (sequelize, DataTypes) => {
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        total: {
+            type: DataTypes.DECIMAL,
+            allowNull: false
         }
     },{
         timestamps: false
