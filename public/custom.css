@@ -173,6 +173,7 @@ Navbar
 
 .admin-menu {
     opacity: 1!important;
+    z-index: 2;
 }
 
 .admin-menu>ol {
@@ -290,4 +291,70 @@ th {
     height: 25px;
     margin: 0 auto;
     display: block;
+}
+
+
+/*
+*****************************************************************************************************************
+Cart
+*/
+
+.cart {
+    width: 100%;
+}
+
+.cart table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.cart td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.cart td,
+th:not(:first-child) {
+    text-align: center;
+}
+
+.carts tr:nth-child(even) {
+    background-color: #efefef;
+}
+
+.cart-amunt {
+    font-size: 300%;
+    text-decoration: none!important;
+    font-weight: 900;
+    color: #007bff;
+    ;
+}
+
+.cart img {
+    height: 70px;
+}
+
+.cart-summary {
+    float: right;
+    margin: 20px;
+    font-size: 200%;
+}
+
+.cart-summary a {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 20px auto;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+.cart-summary a:hover {
+    opacity: 1;
 }

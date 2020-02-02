@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<% include head.ejs %>
+
+    <body>
+        <% include navbar.ejs %>
+
+            <div class="body-wrap">
+                <div class="container">
+                    <div class="a-orders">
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Użytkownik</th>
+                                <th>Data</th>
+                                <th>Nazwa</th>
+                                <th>Wartość</th>
+                                <th>Produkty</th>
+                            </tr>
+                            <% results.forEach(function(r) { %>
+                                <tr>
+                                    <th>
+                                        <%= r.orderId %>
+                                    </th>
+                                    <th>
+                                        <%= r.userId%>
+                                    </th>
+                                    <th>
+                                        <%= r.date %>
+                                    </th>
+                                    <th>
+                                        <%= r.total%>
+                                    </th>
+                                    <th>
+                                        <% r.items.forEach(function(i) { %>
+                                            <ul>
+                                                <li>
+                                                    <%= i.id%> -
+                                                        <%= i.quantity>
+                                                    </li>
+                                                </ul>
+                                            <% }); %>
+                                    </th>
+                                </tr>
+                                <% }); %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </body>
+
+</html>
