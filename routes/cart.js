@@ -1,13 +1,18 @@
 const express = require('express');
 const models = require('../models');
-const { Cart, Item } = require('../lib/Cart');
+const {
+    Cart,
+    Item
+} = require('../lib/Cart');
 const itemRepository = require('../repositories/itemRepository');
 const orderRepository = require('../repositories/orderRepository');
-const { Order } = require('../lib/Order');
+const {
+    Order
+} = require('../lib/Order');
 
 const router = express.Router();
 
-router.get('/cart', async(req, res) => {
+router.get('/cart', async (req, res) => {
     if (req.session.user) {
         if (req.session.user.cart) {
 
@@ -42,7 +47,7 @@ router.get('/cart', async(req, res) => {
 
 
 
-router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
+router.get('/add-to-cart/:id(\\d+)', async (req, res) => {
     if (req.session.user) {
         if (req.session.user.cart) {
             var item = new Item(req.params.id, 1);
@@ -70,7 +75,7 @@ router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
     }
 });
 
-router.get('/remove-from-cart/:id(\\d+)', async(req, res) => {
+router.get('/remove-from-cart/:id(\\d+)', async (req, res) => {
 
 
     if (req.session.user) {
@@ -97,26 +102,22 @@ router.get('/remove-from-cart/:id(\\d+)', async(req, res) => {
     }
 });
 
-router.get('/cart-summary', async(req, res)=> {
+
+router.get('/cart-summary', async (req, res) => {
     if (req.session.user) {
         if (req.session.user.cart) {
-
-            //console.log("--------------------------");
-            //console.log(req.session.user.cart);
-
-
             var cart = new Cart(req.session.user.cart);
-            //console.log("cart: " + cart.items);
             var order = new Order(cart);
             var products = await order.getOrder();
             var total = order.getTotal();
-
+            var new_order = await orderRepository.makeNewOrder(req.session.user.email, order);
+            var results = await orderRepository.getOrderById(new_order.id);
+            console.log(results);
             const data = {
-                'results': req.session.user.cart,
-                'products': products,
-                'total': total
+                'results': results,
+                'isOK': (results) ? true : false
             };
-            res.render('cart', data)
+            res.render('cart-summary', data)
         } else {
             if (req.headers.referer) {
                 res.redirect(req.headers.referer);

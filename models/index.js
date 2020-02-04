@@ -23,7 +23,7 @@ if (config.isProduction) {
             ssl: true,
             protocol: 'postgres',
             dialect: 'postgres',
-            logging: false
+            logging: true
         })
     } catch (err) {
         console.log("Unable to connect to db");
@@ -46,7 +46,7 @@ model.OrdersItems.associate(model);
 
 
 sequelize.sync();
-// sequelize.sync({alter: true});
+//sequelize.sync({  alter: true });
 
 module.exports = model, {
     sequelize
