@@ -23,7 +23,7 @@ if (config.isProduction) {
             ssl: true,
             protocol: 'postgres',
             dialect: 'postgres',
-            logging: true
+            logging: false
         })
     } catch (err) {
         console.log("Unable to connect to db");

@@ -88,18 +88,14 @@ router.get('/cart-summary', async(req, res) => {
             var total = order.getTotal();
             var new_order = await orderRepository.makeNewOrder(req.session.user.email, order);
             var results = await orderRepository.getOrderById(new_order.id);
-            console.log(results);
+            req.session.user.cart = null;
             const data = {
                 'results': results,
                 'isOK': (results) ? true : false
             };
             res.render('cart-summary', data)
         } else {
-            if (req.headers.referer) {
-                res.redirect(req.headers.referer);
-            } else {
-                res.redirect('/');
-            }
+            console.error("There is no cart to summary");
         }
     } else {
         res.redirect('/login?returnUrl=/cart');

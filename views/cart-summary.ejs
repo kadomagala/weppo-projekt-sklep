@@ -8,8 +8,9 @@
 
             <div class="body-wrap">
                 <div class="container">
-                    <div class="a-orders">
+                    <div class="cart-summary">
                         <% if(isOK) { %>
+                            <h1>Podsumowanie zamówienia</h1>
                             <table>
                                 <tr>
                                     <th>ID</th>
@@ -19,23 +20,24 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <%= results.orderId %>
+                                        <%= results.id%>
                                     </th>
                                     <th>
                                         <%= results.date %>
                                     </th>
                                     <th>
-                                        <%= results.total %>
+                                        <%= results.total %> zł.
                                     </th>
                                     <th>
-                                        <% results.items.forEach(function(i) { %>
-                                            <ol>
+                                        <ul class="cart-summary-products">
+                                            <% results.items.forEach(function(i) { %>
                                                 <li>
-                                                    <%= i.orderItems.quantity %>x
+                                                    <%= i.ordersItems.quantity %>x
                                                         <%= i.name %> -
+                                                            <b><%= i.price%> zł.</b>
                                                 </li>
-                                            </ol>
-                                            <% }); %>
+                                                <% }); %>
+                                        </ul>
                                     </th>
                                 </tr>
                             </table>
