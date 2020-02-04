@@ -1,6 +1,4 @@
-const {
-    Sequelize
-} = require('sequelize');
+const { Sequelize } = require('sequelize');
 var pg = require('pg');
 pg.defaults.ssl = true;
 const fs = require('fs');

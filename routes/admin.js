@@ -54,7 +54,6 @@ router.get('/a-orders', async (req, res) => {
             const data = {
                 'results': (result) ? result : null,
             };
-            console.log(data);
             res.render('a-orders', data);
         } catch (err) {
             console.error(err);

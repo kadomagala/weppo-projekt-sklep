@@ -10,13 +10,6 @@ router.get('/login', async(req, res) => {
         returnUrl: req.query.returnUrl ? (req.query.returnUrl) : '/',
         ai: req.query.ai ? req.query.ai : null
     };
-    // if (req.query.returnUrl) {
-    //     data.returnUrl = req.query.returnUrl;
-    // } else {
-    //     data.returnUrl = '/';
-    // }
-
-
     res.render('login.ejs', data);
 });
 
@@ -33,26 +26,10 @@ router.post('/login', async(req, res) => {
 
     if (result) {
         var pwdhash = result.password;
-        if (pwdhash == null || pwdhash == undefined) console.error("Błąd odczytu hasła z bazy danych");
+        if (pwdhash == null || pwdhash == undefined) 
+            console.error("Błąd odczytu hasła z bazy danych");
+
         var bcrypt = require('bcryptjs');
-        /* asynchronoczność nie działa bo nie umiem
-        bcrypt.compare(pwd, pwdhash, function(err, res), {
-            if(err){
-                console.error(err);
-            }
-            if(res === true){
-                data.message = "Zalogowano"; // nie działa bo jesteśmy w lambda
-                console.log("zalogowano s");
-                return function(){
-                    data.message = "zalogowano";
-                }
-            }
-            else {
-                data.message = "Błędne hasło";
-                console.log("Błędne hasło");                    
-            }
-        });
-        */
         if (bcrypt.compareSync(pwd, pwdhash)) {
             data.message = "Zalogowano";
             req.session.user = {
@@ -83,20 +60,12 @@ router.post('/register', async(req, res) => {
         returnUrl: "/",
         ai: req.query.ai ? req.query.ai : null
     };
-    // DODAC ESCPAE 
+
     if (pwd != pwd2) {
         data.message = "Hasła się różnią";
 
     } else {
         var bcrypt = require('bcryptjs');
-        /* async
-        var pwdhash;
-        bcrypt.genSalt(1, function(err, salt) {
-            bcrypt.hash(pwd, salt, function(err, hash) {
-                pwdhash = hash;
-            });
-        });
-        */
         var salt = bcrypt.genSaltSync(1);
         var pwdhash = bcrypt.hashSync(pwd, salt);
         try {

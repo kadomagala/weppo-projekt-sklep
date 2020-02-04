@@ -1,8 +1,6 @@
 const models = require('../models');
 const userRepository = require('./userRepository');
-const {
-    Op
-} = require("sequelize");
+const { Op } = require("sequelize");
 
 class OrderRepository {
 
@@ -17,7 +15,6 @@ class OrderRepository {
     }
 
     async getOrderById(id_) {
-        console.log("get order by id: " + id_);
         return await models.Order.findOne({
             include: [{
                 model: models.Item,
