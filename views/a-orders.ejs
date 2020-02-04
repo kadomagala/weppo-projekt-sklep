@@ -3,51 +3,51 @@
 
 <% include head.ejs %>
 
-<body>
-    <% include navbar.ejs %>
+    <body>
+        <% include navbar.ejs %>
 
-    <div class="body-wrap">
-        <div class="container">
-            <div class="a-orders">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Użytkownik</th>
-                        <th>Data</th>
-                        <th>Nazwa</th>
-                        <th>Wartość</th>
-                        <th>Produkty</th>
-                    </tr>
-                    <% results.forEach(function(r) { %>
-                    <tr>
-                        <th>
-                            <%= r.orderId %>
-                        </th>
-                        <th>
-                            <%= r.userId%>
-                        </th>
-                        <th>
-                            <%= r.date %>
-                        </th>
-                        <th>
-                            <%= r.total%>
-                        </th>
-                        <th>
-                            <% r.items.forEach(function(i) { %>
-                            <ul>
-                                <li>
-                                    <%= i.id%> -
-                                    <%= i.ordersItems.quantity %>
-                                </li>
-                            </ul>
-                            <% }); %>
-                        </th>
-                    </tr>
-                    <% }); %>
-                </table>
+            <div class="body-wrap">
+                <div class="container">
+                    <div class="a-orders">
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Użytkownik</th>
+                                <th>Data</th>
+                                <th>Wartość</th>
+                                <th>Produkty</th>
+                            </tr>
+                            <% results.forEach(function(r) { %>
+                                <tr>
+                                    <th>
+                                        <%= r.id %>
+                                    </th>
+                                    <th>
+                                        <%= r.userId%>
+                                    </th>
+                                    <th>
+                                        <%= r.date %>
+                                    </th>
+                                    <th>
+                                        <%= r.total%> zł.
+                                    </th>
+                                    <th>
+                                        <ul class="cart-summary-products">
+                                            <% r.items.forEach(function(i) { %>
+                                                <li>
+                                                    <%= i.ordersItems.quantity %>x
+                                                        <%= i.name %> -
+                                                            <b><%= i.price%> zł.</b>
+                                                </li>
+                                                <% }); %>
+                                        </ul>
+                                    </th>
+                                </tr>
+                                <% }); %>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</body>
+    </body>
 
 </html>

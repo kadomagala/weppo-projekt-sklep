@@ -367,7 +367,8 @@ th:not(:first-child) {
 Cart-summary
 */
 
-.cart-summary table {
+.cart-summary table,
+.a-orders table {
     width: 100%;
 }
 
