@@ -29,9 +29,6 @@ class OrderRepository {
         await models.OrdersItems.truncate({ cascade: true });
 
     }
-
-
-
 }
 
 module.exports = new OrderRepository();

@@ -60,9 +60,7 @@ router.post('/login', async(req, res) => {
                 role: result.role ? result.role : null
             };
             if (req.body.returnurl != "/") {
-                console.log("Po zalogowaniu poniennem przenieść na: " + req.body.returnurl)
                 res.redirect(req.body.returnurl);
-                //TODO po zalogowanie dalej jest /login?returnURL
             } else {
                 res.redirect('/');
             }

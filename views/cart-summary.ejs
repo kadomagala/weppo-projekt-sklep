@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<% include head.ejs %>
+
+    <body>
+        <% include navbar.ejs %>
+
+            <div class="body-wrap">
+                <div class="container">
+                    <div class="a-orders">
+                        <% if(isOK) { %>
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Data</th>
+                                    <th>Wartość</th>
+                                    <th>Produkty</th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <%= results.orderId %>
+                                    </th>
+                                    <th>
+                                        <%= results.date %>
+                                    </th>
+                                    <th>
+                                        <%= results.total %>
+                                    </th>
+                                    <th>
+                                        <% results.items.forEach(function(i) { %>
+                                            <ol>
+                                                <li>
+                                                    <%= i.orderItems.quantity %>x
+                                                        <%= i.name %> -
+                                                </li>
+                                            </ol>
+                                            <% }); %>
+                                    </th>
+                                </tr>
+                            </table>
+                            <% } else { %>
+                                <p>Błąd składania zamówienia</p>
+                                <% } %>
+
+                    </div>
+                </div>
+            </div>
+    </body>
+
+</html>

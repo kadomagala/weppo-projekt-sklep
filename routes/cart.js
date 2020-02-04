@@ -4,19 +4,12 @@ const { Cart, Item } = require('../lib/Cart');
 const itemRepository = require('../repositories/itemRepository');
 const orderRepository = require('../repositories/orderRepository');
 const { Order } = require('../lib/Order');
-
 const router = express.Router();
 
 router.get('/cart', async(req, res) => {
     if (req.session.user) {
         if (req.session.user.cart) {
-
-            //console.log("--------------------------");
-            //console.log(req.session.user.cart);
-
-
             var cart = new Cart(req.session.user.cart);
-            //console.log("cart: " + cart.items);
             var order = new Order(cart);
             var products = await order.getOrder();
             var total = order.getTotal();
@@ -28,19 +21,13 @@ router.get('/cart', async(req, res) => {
             };
             res.render('cart', data)
         } else {
-            if (req.headers.referer) {
-                res.redirect(req.headers.referer);
-            } else {
-                res.redirect('/');
-            }
+            res.render('cart', { products: null })
         }
     } else {
         res.redirect('/login?returnUrl=/cart&ai=1');
         //ai = adding item (to cart)
     }
 });
-
-
 
 router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
     if (req.session.user) {
@@ -49,12 +36,10 @@ router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
             var cart = new Cart(req.session.user.cart);
             cart.addToCart(item);
             req.session.user.cart = cart;
-            //console.log(req.session.user.cart);
         } else {
             req.session.user.cart = new Cart(null);
             var item = new Item(req.params.id, 1);
             req.session.user.cart.addToCart(item);
-            //console.log(req.session.user.cart);
         }
         if (req.headers.referer) {
             res.redirect(req.headers.referer);
@@ -71,10 +56,7 @@ router.get('/add-to-cart/:id(\\d+)', async(req, res) => {
 });
 
 router.get('/remove-from-cart/:id(\\d+)', async(req, res) => {
-
-
     if (req.session.user) {
-
         if (req.session.user.cart) {
             var item = new Item(req.params.id, 1);
             var cart = new Cart(req.session.user.cart);
@@ -97,7 +79,7 @@ router.get('/remove-from-cart/:id(\\d+)', async(req, res) => {
     }
 });
 
-router.get('/cart-summary', async(req, res)=> {
+router.get('/cart-summary', async(req, res) => {
     if (req.session.user) {
         if (req.session.user.cart) {
 

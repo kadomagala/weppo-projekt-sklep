@@ -6,57 +6,60 @@
         <% include navbar.ejs %>
             <div class="body-wrap">
                 <h2>Koszyk</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="cart">
-                            <table>
-                                <tr>
-                                    <th>Nazwa</th>
-                                    <th>Zdjęcie</th>
-                                    <th>Cena</th>
-                                    <th>Usuń</th>
-                                    <th>Liczba</th>
-                                    <th>Dodaj</th>
-                                    <th>Wartość</th>
-
-                                </tr>
-                                <% 
-                        products.forEach(item => { %>
+                <% if(products != null) { %>
+                    <div class="container">
+                        <div class="row">
+                            <div class="cart">
+                                <table>
                                     <tr>
-                                        <th>
-                                            <%= item.name %>
-                                        </th>
-                                        <th>
-                                            <img src="<%= item.image %>">
-                                        </th>
-                                        <th>
-                                            <%= item.price %> zł.
-                                        </th>
-                                        <th>
-                                            <a href="/remove-from-cart/<%= item.id %>" class="cart-amunt">-</a>
-                                        </th>
-                                        <th>
-                                            <%= item.quantity %>
-                                        </th>
-                                        <th>
-                                            <a href="/add-to-cart/<%= item.id %>" class="cart-amunt">+</a>
-                                        </th>
-                                        <th>
-                                            <%= item.itemTotal %> zł.
-                                        </th>
-                                    </tr>
-                                    <%  });  %>
-                            </table>
+                                        <th>Nazwa</th>
+                                        <th>Zdjęcie</th>
+                                        <th>Cena</th>
+                                        <th>Usuń</th>
+                                        <th>Liczba</th>
+                                        <th>Dodaj</th>
+                                        <th>Wartość</th>
 
+                                    </tr>
+                                    <% products.forEach(item => { %>
+                                        <tr>
+                                            <th>
+                                                <%= item.name %>
+                                            </th>
+                                            <th>
+                                                <img src="<%= item.image %>">
+                                            </th>
+                                            <th>
+                                                <%= item.price %> zł.
+                                            </th>
+                                            <th>
+                                                <a href="/remove-from-cart/<%= item.id %>" class="cart-amunt">-</a>
+                                            </th>
+                                            <th>
+                                                <%= item.quantity %>
+                                            </th>
+                                            <th>
+                                                <a href="/add-to-cart/<%= item.id %>" class="cart-amunt">+</a>
+                                            </th>
+                                            <th>
+                                                <%= item.itemTotal %> zł.
+                                            </th>
+                                        </tr>
+                                        <%  });  %>
+                                </table>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="cart-summary">
-                    <p class="cart-total">Całkowity koszt
-                        <b><%= total %></b> zł.
-                    </p>
-                    <a href="/cart-summary">Złóż zamówienie</a>
-                </div>
+                    <div class="cart-summary">
+                        <p class="cart-total">Całkowity koszt
+                            <b><%= total %></b> zł.
+                        </p>
+                        <a href="/cart-summary">Złóż zamówienie</a>
+                    </div>
+                    <% }else{ %>
+                        <p>Koszyk jest pusty</p>
+                        <% } %>
 
     </body>
 
