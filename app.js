@@ -18,14 +18,12 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(async(req, res, next) => {
     if (req.session.user) {
-        //console.log("User logged");
         req.app.locals.user = req.session.user;
         req.app.locals.cart = req.session.user.cart;
-        //console.log('user ' + req.app.locals.user.role);
     } else {
-        //console.log("User not logged");
         req.app.locals.user = null;
         req.app.locals.cart = null;
     }
@@ -38,6 +36,7 @@ app.use('/', routes.items);
 app.use('/', routes.auth);
 app.use('/', routes.cart);
 app.use('/', routes.admin);
+
 app.use((req, res, next) => {
     res.render('404.ejs', {
         url: req.url

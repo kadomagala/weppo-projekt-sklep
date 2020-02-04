@@ -46,14 +46,8 @@ router.post('/edit-product', async(req, res) => {
         let desc = req.body.description;
         let img = req.body.image;
 
-        try {
-            const result = await itemRepository.updateProduct(id, name, price, desc, img);
-        }
-        //to i tak nie działa ale sobie jest
-        catch (err) {
-            console.error(err);
-            res.send("Error " + err);
-        }
+        const result = await itemRepository.updateProduct(id, name, price, desc, img);
+
 
         res.redirect('/a-products');
     }
@@ -66,15 +60,9 @@ router.post('/add-product', async(req, res) => {
         let price = req.body.price;
         let desc = req.body.description;
         let img = req.body.image;
+        
+        const result = await itemRepository.insertProduct(name, price, desc, img);
 
-        try {
-            const result = await itemRepository.insertProduct(name, price, desc, img);
-        }
-        //to i tak nie działa ale sobie jest
-        catch (err) {
-            console.error(err);
-            res.send("Error " + err);
-        }
         res.redirect('/a-products');
     }
 });
