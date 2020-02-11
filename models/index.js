@@ -11,8 +11,6 @@ if (config.isProduction) {
         dialect: 'postgres',
         protocol: 'postgres',
         ssl: true,
-        port: match[4],
-        host: match[3],
         logging: false
     });
 } else {
@@ -46,6 +44,8 @@ model.OrdersItems.associate(model);
 
 
 sequelize.sync();
-// sequelize.sync({alter: true});
+//sequelize.sync({  alter: true });
 
-module.exports = model, { sequelize };
+module.exports = model, {
+    sequelize
+};

@@ -14,7 +14,6 @@
                                 <th>ID</th>
                                 <th>Użytkownik</th>
                                 <th>Data</th>
-                                <th>Nazwa</th>
                                 <th>Wartość</th>
                                 <th>Produkty</th>
                             </tr>
@@ -30,17 +29,30 @@
                                         <%= r.date %>
                                     </th>
                                     <th>
+<<<<<<< HEAD
                                         <%= r.total %>
+=======
+                                        <%= r.total%> zł.
+>>>>>>> bf796c375c3be4f0256a6a2abc818afdc0c57698
                                     </th>
                                     <th>
-                                        <% r.items.forEach(function(i) { %>
-                                            <ul>
+                                        <ul class="cart-summary-products">
+                                            <% r.items.forEach(function(i) { %>
                                                 <li>
+<<<<<<< HEAD
                                                     <%= i.id%> -
                                                         <%= i.quantity %>
                                                     </li>
                                                 </ul>
                                             <% }); %>
+=======
+                                                    <%= i.ordersItems.quantity %>x
+                                                        <%= i.name %> -
+                                                            <b><%= i.price%> zł.</b>
+                                                </li>
+                                                <% }); %>
+                                        </ul>
+>>>>>>> bf796c375c3be4f0256a6a2abc818afdc0c57698
                                     </th>
                                 </tr>
                                 <% }); %>

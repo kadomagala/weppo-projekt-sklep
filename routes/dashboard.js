@@ -9,9 +9,9 @@ router.get('/', async(req, res) => {
         const items = await itemRepository.getAllProducts();
 
         const results = {
-            'results': (items) ? items : null
+            'results': (items) ? items : null,
+            'message': (req.query.message) ? req.query.message : null
         };
-        //console.log(results);
         res.render('index', results);
 
     } catch (err) {
