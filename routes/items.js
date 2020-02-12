@@ -2,22 +2,37 @@ const express = require('express');
 const itemRepository = require('../repositories/itemRepository')
 
 const router = express.Router();
+var multer = require('multer');
+var upload = multer();
 
+router.post('/getroductfromrange', upload.single(), async(req, res) => {
+    var from = req.body.from;
+    var to = req.body.to;
+    var all = false; // all products loaded
+
+    const items = await itemRepository.getProductsFromRange(from, to);
+    if (Number(to) - Number(from) > items.length) all = true // TODO jeśli równo rekoród to nie zniknie przycisk
+
+    const results = {
+        'results': items,
+        'all': all
+    };
+    var buf = Buffer.from(JSON.stringify(results));
+    res.end(buf);
+});
 router.get('/products', async(req, res) => {
     try {
-        const items = await itemRepository.getAllProducts();
-
+        const items = await itemRepository.getProductsFromRange(1, 6);
         const results = {
             'results': (items) ? items : null
         };
-        res.render('index', results);
+        res.render('products', results);
 
     } catch (err) {
         console.error(err);
         res.send("Error " + err);
     }
 });
-
 router.get('/product/:id(\\d+)', async(req, res) => {
     try {
         let id = req.params.id;
@@ -60,7 +75,7 @@ router.post('/add-product', async(req, res) => {
         let price = req.body.price;
         let desc = req.body.description;
         let img = req.body.image;
-        
+
         const result = await itemRepository.insertProduct(name, price, desc, img);
 
         res.redirect('/a-products');

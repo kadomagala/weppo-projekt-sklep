@@ -26,7 +26,7 @@ router.post('/login', async(req, res) => {
 
     if (result) {
         var pwdhash = result.password;
-        if (pwdhash == null || pwdhash == undefined) 
+        if (pwdhash == null || pwdhash == undefined)
             console.error("Błąd odczytu hasła z bazy danych");
 
         var bcrypt = require('bcryptjs');

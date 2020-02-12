@@ -42,7 +42,7 @@ class OrderRepository {
                 quantity: items[i].quantity,
                 total: items[i].itemTotal
             });
-            console.log(item);
+            //console.log(item);
         }
         return new_order;
     }

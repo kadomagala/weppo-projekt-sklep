@@ -88,6 +88,25 @@ Products
 
 
 /*
+    More Products Button
+*/
+
+#ajax-from,
+#ajax-to {
+    visibility: hidden;
+}
+
+#ajax-btn {
+    display: block;
+    margin: 20px auto;
+    background-color: #4CAF50;
+    color: black;
+    padding: 16px 20px;
+    border: 1px black solid;
+}
+
+
+/*
 *****************************************************************************************************************
 Navbar
 
