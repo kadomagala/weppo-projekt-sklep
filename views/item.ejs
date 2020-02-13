@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<% include head.ejs %>
+
+    <body>
+
+        <% include navbar.ejs %>
+            <div class="body-wrap">
+                <div class="products-view row">
+                    <% var r = results %>
+                        <div class="col-sm-7">
+                            <div class="product-view-img">
+                                <a href="/product/<%= r.id %>"><img src="<%= r.image.replace('300/300.jpg','1000/1000.jpg') %>"></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="product-view-title">
+                                <%= r.name %>
+                            </div>
+                            <div class="product-view-price">
+                                <b>Cena: <%= r.price %> zł.</b>
+                            </div>
+                            <div class="product-view-desc">
+                                <p>
+                                    <%= r.description %>
+                                </p>
+                            </div>
+                            <div class="product-view-cart">
+                                <a href="/add-to-cart/<%= r.id %>"><img src="https://hepatica.pl/wp-content/themes/maksymilian-org/img/koszyk.png" alt="Koszyk">Dodaj do koszyka</a>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+            </div>
+    </body>
+
+
+
+</html>

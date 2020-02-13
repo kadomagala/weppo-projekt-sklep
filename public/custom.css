@@ -64,6 +64,7 @@ Products
     width: 100%;
     height: 70px;
     overflow: hidden;
+    font-size: 70%;
 }
 
 .product-price {
@@ -82,6 +83,59 @@ Products
 }
 
 .product-cart a img {
+    height: 40px;
+    margin-right: 5px;
+}
+
+
+/*
+    Single product view
+*/
+
+.product-view-title {
+    font-size: 25px;
+    color: black;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 70px;
+}
+
+.product-view-title a {
+    color: black;
+}
+
+.product-view-img img {
+    margin: 10px auto;
+    display: block;
+    width: 90%;
+}
+
+.product-view-desc {
+    padding: 0 20px;
+    width: 100%;
+    height: 70px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.product-view-price {
+    margin-left: 20px;
+    margin-bottom: 30px;
+    font-size: 200%;
+}
+
+.product-view-cart {
+    padding: 10px;
+    margin: 5px auto;
+    background: #4CAF50;
+    border: 1px solid #4b6342;
+}
+
+.product-view-cart a {
+    text-decoration: none;
+}
+
+.product-view-cart a img {
     height: 40px;
     margin-right: 5px;
 }

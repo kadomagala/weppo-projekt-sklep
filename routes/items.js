@@ -41,7 +41,7 @@ router.get('/product/:id(\\d+)', async(req, res) => {
             'results': (result) ? result : null
         };
         if (result) {
-            res.render('index', results);
+            res.render('item', results);
         } else {
             res.render('404');
         }
