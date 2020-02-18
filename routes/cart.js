@@ -86,17 +86,6 @@ router.get('/cart-summary', async(req, res) => {
             var order = new Order(cart);
             var products = await order.getOrder();
             var total = order.getTotal();
-<<<<<<< HEAD
-
-            var new_order = await orderRepository.makeNewOrder(req.session.user.email, order);
-
-            var my_order = await orderRepository.getAllOrders();
-            console.log(my_order[0]);
-            const data = {
-                'results': my_order
-            };
-            res.render('a-orders', data)
-=======
             var new_order = await orderRepository.makeNewOrder(req.session.user.email, order);
             var results = await orderRepository.getOrderById(new_order.id);
             req.session.user.cart = null;
@@ -105,7 +94,6 @@ router.get('/cart-summary', async(req, res) => {
                 'isOK': (results) ? true : false
             };
             res.render('cart-summary', data)
->>>>>>> bf796c375c3be4f0256a6a2abc818afdc0c57698
         } else {
             console.error("There is no cart to summary");
         }

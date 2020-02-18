@@ -19,6 +19,9 @@ const item = (sequelize, DataTypes) => {
         },
         image:{
             type: DataTypes.TEXT
+        },
+        categoryId:{
+            type: DataTypes.INTEGER
         }
         
     },{

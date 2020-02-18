@@ -16,12 +16,12 @@ if (config.isProduction) {
 } else {
     try {
         let secret = JSON.parse(fs.readFileSync('secret.json'));
-        sequelize = new Sequelize(secret.db.database, secret.db.user, secret.db.password, {
-            host: secret.db.host,
+        sequelize = new Sequelize(secret.testdb.database, secret.testdb.user, secret.testdb.password, {
+            host: secret.testdb.host,
             ssl: true,
             protocol: 'postgres',
             dialect: 'postgres',
-            logging: false
+            logging: true
         })
     } catch (err) {
         console.log("Unable to connect to db");
@@ -32,19 +32,22 @@ if (config.isProduction) {
 
 const model = {
     User: sequelize.import('./user'),
+    Category: sequelize.import('./category'),
     Item: sequelize.import('./item'),
     OrdersItems: sequelize.import('./ordersItems'),
     Order: sequelize.import('./order')
 
 };
 
+model.Category.associate(model);
 model.Item.associate(model);
 model.Order.associate(model);
 model.OrdersItems.associate(model);
 
 
-sequelize.sync();
+//sequelize.sync();
 //sequelize.sync({  alter: true });
+sequelize.sync({force: true});
 
 module.exports = model, {
     sequelize

